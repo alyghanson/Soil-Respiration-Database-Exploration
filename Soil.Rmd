@@ -1,7 +1,0 @@
-```{r}
-soil_data <- read.csv(file='./SRDB_V5_1827/data/srdb-data-V5.csv')
-```
-```{r}
-summary(soil_data)
-```
-

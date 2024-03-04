@@ -16,7 +16,7 @@ navbar:
     href: about.html
 output:
   html_document:
-    theme: cosmo
+    theme: sandstone
     version: 4
     highlight: haddock
     css: html-md-01.css
