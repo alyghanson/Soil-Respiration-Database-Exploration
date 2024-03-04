@@ -1,0 +1,31 @@
+  
+name: GEOG 490 Final Data Project
+navbar:
+  title: "Soil Project:  R for Earth-System Science Final"
+  left:
+  - text: Topics
+    menu:
+    - text: "Introduction to Dataset"
+      href: intro.html
+    - text: "Exploratory Data Analysis and cleaning"
+      href: exploratory_cleaning.html
+    - text: "Distribution of Key Features"
+      href: distributions.html
+  right:
+  - text: "About Project"
+    href: about.html
+output:
+  html_document:
+    theme: cosmo
+    version: 4
+    highlight: haddock
+    css: html-md-01.css
+    fig_caption: no
+    number_sections: yes
+    toc: yes
+    toc_float: no
+    collapsed: no
+    lib_dir: site_libs
+    self_contained: no
+output_dir: docs
+ 

@@ -1,0 +1,38 @@
+
+---
+title: "Distribution of Key Features"
+output: 
+  html_document:
+    fig_caption: no
+    number_sections: no
+    toc: no
+    toc_float: false
+    collapsed: no
+---
+
+```{r set-options, echo=FALSE}
+options(width = 105)
+knitr::opts_chunk$set(dev='png', dpi=300, cache=TRUE)
+pdf.options(useDingbats = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(sf)
+library(mapview)
+soil_data <- read.csv(file='./SRDB_V5_1827/data/srdb-data-V5.csv')
+```
+
+```{r}
+summary(soil_data)
+```
+
+```{r}
+soil_data %>%
+  glimpse()
+```
+
+```{r}
+ggplot(data = soil_data) + geom_bar(mapping = aes(x = Biome))
+```
+

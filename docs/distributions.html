@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Distribution of Key Features</title>
+
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; } /* Alert */
+code span.an { color: #008000; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #0000ff; } /* ControlFlow */
+code span.ch { color: #008080; } /* Char */
+code span.cn { } /* Constant */
+code span.co { color: #008000; } /* Comment */
+code span.cv { color: #008000; } /* CommentVar */
+code span.do { color: #008000; } /* Documentation */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.im { } /* Import */
+code span.in { color: #008000; } /* Information */
+code span.kw { color: #0000ff; } /* Keyword */
+code span.op { } /* Operator */
+code span.ot { color: #ff4000; } /* Other */
+code span.pp { color: #ff4000; } /* Preprocessor */
+code span.sc { color: #008080; } /* SpecialChar */
+code span.ss { color: #008080; } /* SpecialString */
+code span.st { color: #008080; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #008080; } /* VerbatimString */
+code span.wa { color: #008000; font-weight: bold; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link rel="stylesheet" href="html-md-01.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Soil Project:  R for Earth-System Science Final</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Topics
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="intro.html">Introduction to Dataset</a>
+    </li>
+    <li>
+      <a href="exploratory_cleaning.html">Exploratory Data Analysis and cleaning</a>
+    </li>
+    <li>
+      <a href="distributions.html">Distribution of Key Features</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="about.html">About Project</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Distribution of Key Features</h1>
+
+</div>
+
+
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<pre><code>## ── Attaching core tidyverse packages ───────────────────────────────────────────────── tidyverse 2.0.0 ──
+## ✔ dplyr     1.1.4     ✔ readr     2.1.4
+## ✔ forcats   1.0.0     ✔ stringr   1.5.1
+## ✔ ggplot2   3.5.0     ✔ tibble    3.2.1
+## ✔ lubridate 1.9.3     ✔ tidyr     1.3.0
+## ✔ purrr     1.0.2     
+## ── Conflicts ─────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">library</span>(sf)</span></code></pre></div>
+<pre><code>## Linking to GEOS 3.11.0, GDAL 3.5.3, PROJ 9.1.0; sf_use_s2() is TRUE</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">library</span>(mapview)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>soil_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file=</span><span class="st">&#39;./SRDB_V5_1827/data/srdb-data-V5.csv&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">summary</span>(soil_data)</span></code></pre></div>
+<pre><code>##  Record_number    Entry_date         Study_number      Author          Duplicate_record  
+##  Min.   :    1   Length:10366       Min.   :   14   Length:10366       Length:10366      
+##  1st Qu.: 2612   Class :character   1st Qu.: 3795   Class :character   Class :character  
+##  Median : 5216   Mode  :character   Median : 6617   Mode  :character   Mode  :character  
+##  Mean   : 5218                      Mean   : 6667                                        
+##  3rd Qu.: 7829                      3rd Qu.:10069                                        
+##  Max.   :10429                      Max.   :12000                                        
+##                                                                                          
+##  Quality_flag       Contributor          Country             Region           Site_name        
+##  Length:10366       Length:10366       Length:10366       Length:10366       Length:10366      
+##  Class :character   Class :character   Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+##                                                                                                
+##                                                                                                
+##                                                                                                
+##                                                                                                
+##    Site_ID          Study_midyear   YearsOfData        Latitude        Longitude         Elevation   
+##  Length:10366       Min.   :1961   Min.   : 0.500   Min.   :-78.02   Min.   :-163.71   Min.   :  -9  
+##  Class :character   1st Qu.:2002   1st Qu.: 1.000   1st Qu.: 32.42   1st Qu.: -79.10   1st Qu.: 219  
+##  Mode  :character   Median :2007   Median : 1.000   Median : 40.60   Median :  13.72   Median : 500  
+##                     Mean   :2005   Mean   : 1.234   Mean   : 37.38   Mean   :  16.08   Mean   : 886  
+##                     3rd Qu.:2011   3rd Qu.: 1.000   3rd Qu.: 47.12   3rd Qu.: 111.83   3rd Qu.:1300  
+##                     Max.   :2017   Max.   :12.000   Max.   : 81.80   Max.   : 175.90   Max.   :5895  
+##                     NA&#39;s   :183    NA&#39;s   :182      NA&#39;s   :381      NA&#39;s   :383       NA&#39;s   :4552  
+##  Manipulation       Manipulation_level Age_ecosystem    Age_disturbance    Species         
+##  Length:10366       Length:10366       Min.   :  0.00   Min.   :  0.00   Length:10366      
+##  Class :character   Class :character   1st Qu.:  9.00   1st Qu.:  1.00   Class :character  
+##  Mode  :character   Mode  :character   Median : 25.00   Median : 18.00   Mode  :character  
+##                                        Mean   : 42.03   Mean   : 39.23                     
+##                                        3rd Qu.: 50.00   3rd Qu.: 55.00                     
+##                                        Max.   :500.00   Max.   :500.00                     
+##                                        NA&#39;s   :9202     NA&#39;s   :6023                       
+##     Biome           Ecosystem_type     Ecosystem_state     Leaf_habit           Stage          
+##  Length:10366       Length:10366       Length:10366       Length:10366       Length:10366      
+##  Class :character   Class :character   Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+##                                                                                                
+##                                                                                                
+##                                                                                                
+##                                                                                                
+##   Soil_type         Soil_drainage         Soil_BD         Soil_CN         Soil_sand       Soil_silt    
+##  Length:10366       Length:10366       Min.   :0.050   Min.   :  0.23   Min.   : 0.60   Min.   : 0.14  
+##  Class :character   Class :character   1st Qu.:0.890   1st Qu.: 10.30   1st Qu.:26.32   1st Qu.:20.00  
+##  Mode  :character   Mode  :character   Median :1.180   Median : 13.54   Median :51.00   Median :30.40  
+##                                        Mean   :1.094   Mean   : 16.61   Mean   :47.13   Mean   :32.69  
+##                                        3rd Qu.:1.340   3rd Qu.: 19.00   3rd Qu.:64.00   3rd Qu.:45.00  
+##                                        Max.   :9.300   Max.   :113.20   Max.   :99.30   Max.   :85.00  
+##                                        NA&#39;s   :7718    NA&#39;s   :8096     NA&#39;s   :8746    NA&#39;s   :8759   
+##    Soil_clay          MAT              MAP            PET           Study_temp      Study_precip   
+##  Min.   : 0.00   Min.   :-19.00   Min.   :  10   Min.   :   2.3   Min.   :-19.50   Min.   :   1.0  
+##  1st Qu.: 9.00   1st Qu.:  4.80   1st Qu.: 511   1st Qu.: 805.0   1st Qu.:  6.10   1st Qu.: 473.0  
+##  Median :17.00   Median :  8.90   Median : 835   Median :1390.0   Median :  9.10   Median : 810.0  
+##  Mean   :20.36   Mean   : 10.12   Mean   :1015   Mean   :1423.4   Mean   : 10.94   Mean   : 942.3  
+##  3rd Qu.:28.00   3rd Qu.: 15.50   3rd Qu.:1322   3rd Qu.:1935.0   3rd Qu.: 16.07   3rd Qu.:1189.3  
+##  Max.   :76.00   Max.   : 38.00   Max.   :5532   Max.   :4770.0   Max.   : 45.30   Max.   :5900.0  
+##  NA&#39;s   :8664    NA&#39;s   :2930     NA&#39;s   :2241   NA&#39;s   :9814     NA&#39;s   :9376     NA&#39;s   :8985    
+##  Meas_method        Collar_height     Collar_depth      Chamber_area     Time_of_day       
+##  Length:10366       Min.   :  1.70   Min.   :  0.000   Min.   :   13.2   Length:10366      
+##  Class :character   1st Qu.:  5.00   1st Qu.:  2.000   1st Qu.:   80.0   Class :character  
+##  Mode  :character   Median : 10.00   Median :  3.000   Median :  314.0   Mode  :character  
+##                     Mean   : 14.38   Mean   :  4.461   Mean   :  506.8                     
+##                     3rd Qu.: 20.00   3rd Qu.:  5.000   3rd Qu.:  490.6                     
+##                     Max.   :100.00   Max.   :100.000   Max.   :11304.0                     
+##                     NA&#39;s   :5858     NA&#39;s   :4006      NA&#39;s   :2824                        
+##  Meas_interval    Annual_coverage  Partition_method     Rs_annual       Rs_annual_err   
+##  Min.   :  0.01   Min.   :0.0100   Length:10366       Min.   : -200.0   Min.   :   0.0  
+##  1st Qu.: 10.00   1st Qu.:0.5000   Class :character   1st Qu.:  471.0   1st Qu.:  37.0  
+##  Median : 20.00   Median :1.0000   Mode  :character   Median :  732.0   Median :  68.0  
+##  Mean   : 21.99   Mean   :0.7651                      Mean   :  854.6   Mean   : 141.9  
+##  3rd Qu.: 30.00   3rd Qu.:1.0000                      3rd Qu.: 1075.0   3rd Qu.: 136.0  
+##  Max.   :365.00   Max.   :1.0000                      Max.   :23046.0   Max.   :3039.2  
+##  NA&#39;s   :2821     NA&#39;s   :2165                        NA&#39;s   :4625      NA&#39;s   :7975    
+##  Rs_interann_err  Rlitter_annual    Ra_annual        Rh_annual        RC_annual        Rs_spring     
+##  Min.   :  0.00   Min.   :  0.0   Min.   : -16.0   Min.   :-116.4   Min.   :-0.040   Min.   : 0.310  
+##  1st Qu.: 25.00   1st Qu.:110.0   1st Qu.: 152.8   1st Qu.: 280.0   1st Qu.: 0.280   1st Qu.: 0.671  
+##  Median : 62.00   Median :158.0   Median : 275.9   Median : 422.7   Median : 0.390   Median : 2.190  
+##  Mean   : 90.44   Mean   :198.5   Mean   : 361.7   Mean   : 479.3   Mean   : 0.406   Mean   : 2.239  
+##  3rd Qu.:122.00   3rd Qu.:260.0   3rd Qu.: 447.4   3rd Qu.: 600.0   3rd Qu.: 0.520   3rd Qu.: 2.900  
+##  Max.   :636.00   Max.   :949.0   Max.   :2280.0   Max.   :4150.0   Max.   : 1.150   Max.   :10.000  
+##  NA&#39;s   :9245     NA&#39;s   :10161   NA&#39;s   :9606     NA&#39;s   :9316     NA&#39;s   :9439     NA&#39;s   :10260   
+##    Rs_summer        Rs_autumn       Rs_winter      Rs_growingseason     Rs_wet           Rs_dry      
+##  Min.   : 0.000   Min.   :0.205   Min.   : 0.000   Min.   : 0.000   Min.   : 0.043   Min.   : 0.000  
+##  1st Qu.: 1.025   1st Qu.:0.738   1st Qu.: 0.220   1st Qu.: 1.468   1st Qu.: 1.867   1st Qu.: 1.597  
+##  Median : 2.259   Median :2.060   Median : 0.550   Median : 2.510   Median : 3.170   Median : 2.270  
+##  Mean   : 3.429   Mean   :2.219   Mean   : 0.938   Mean   : 3.012   Mean   : 3.396   Mean   : 2.635  
+##  3rd Qu.: 4.405   3rd Qu.:2.953   3rd Qu.: 1.160   3rd Qu.: 3.957   3rd Qu.: 4.400   3rd Qu.: 2.933  
+##  Max.   :29.500   Max.   :7.440   Max.   :11.790   Max.   :24.110   Max.   :12.037   Max.   :16.140  
+##  NA&#39;s   :10046    NA&#39;s   :10262   NA&#39;s   :10045    NA&#39;s   :7699     NA&#39;s   :10121    NA&#39;s   :10166   
+##   RC_seasonal     RC_season              GPP               ER              NEP               NPP        
+##  Min.   :0.000   Length:10366       Min.   :   0.0   Min.   :  78.2   Min.   :-1650.0   Min.   :-116.8  
+##  1st Qu.:0.250   Class :character   1st Qu.: 836.5   1st Qu.: 744.0   1st Qu.:  -20.5   1st Qu.: 268.0  
+##  Median :0.370   Mode  :character   Median :1349.5   Median :1018.0   Median :  149.8   Median : 551.0  
+##  Mean   :0.393                      Mean   :1604.8   Mean   :1227.8   Mean   :  215.4   Mean   : 682.7  
+##  3rd Qu.:0.520                      3rd Qu.:2051.8   3rd Qu.:1456.8   3rd Qu.:  374.5   3rd Qu.: 872.8  
+##  Max.   :0.940                      Max.   :7800.0   Max.   :8044.0   Max.   : 2700.0   Max.   :7056.0  
+##  NA&#39;s   :10099                      NA&#39;s   :9962     NA&#39;s   :9909     NA&#39;s   :9663      NA&#39;s   :9694    
+##       ANPP             BNPP             NPP_FR           TBCA         Litter_flux     Rootlitter_flux
+##  Min.   :   0.0   Min.   :   0.00   Min.   :  4.3   Min.   :  68.0   Min.   : -20.0   Min.   :  0.0  
+##  1st Qu.: 151.0   1st Qu.:  73.38   1st Qu.: 90.0   1st Qu.: 237.8   1st Qu.: 130.8   1st Qu.: 50.0  
+##  Median : 266.1   Median : 180.00   Median :144.0   Median : 583.0   Median : 204.5   Median :117.5  
+##  Mean   : 384.5   Mean   : 233.45   Mean   :168.3   Mean   : 647.5   Mean   : 247.5   Mean   :166.8  
+##  3rd Qu.: 449.2   3rd Qu.: 282.50   3rd Qu.:211.0   3rd Qu.: 896.0   3rd Qu.: 315.5   3rd Qu.:241.2  
+##  Max.   :2560.0   Max.   :4203.00   Max.   :700.0   Max.   :2600.0   Max.   :3150.0   Max.   :590.0  
+##  NA&#39;s   :9666     NA&#39;s   :9940      NA&#39;s   :10129   NA&#39;s   :10216    NA&#39;s   :9313     NA&#39;s   :10221  
+##   TotDet_flux         Ndep             LAI               BA         C_veg_total           C_AG         
+##  Min.   :  4.3   Min.   : 0.100   Min.   : 0.000   Min.   :  0.0   Min.   :    4.0   Min.   :     0.0  
+##  1st Qu.:144.2   1st Qu.: 0.500   1st Qu.: 2.115   1st Qu.: 20.7   1st Qu.:  592.5   1st Qu.:   235.1  
+##  Median :273.0   Median : 0.800   Median : 3.600   Median : 29.2   Median : 2080.9   Median :  1239.0  
+##  Mean   :319.8   Mean   : 1.709   Mean   : 3.870   Mean   : 34.5   Mean   : 6322.4   Mean   :  5446.7  
+##  3rd Qu.:436.0   3rd Qu.: 2.000   3rd Qu.: 5.300   3rd Qu.: 42.1   3rd Qu.: 8455.0   3rd Qu.:  5128.0  
+##  Max.   :885.0   Max.   :20.500   Max.   :14.900   Max.   :385.5   Max.   :66800.0   Max.   :145200.0  
+##  NA&#39;s   :10202   NA&#39;s   :10236    NA&#39;s   :9471     NA&#39;s   :9149    NA&#39;s   :9975      NA&#39;s   :9340      
+##       C_BG              C_CR              C_FR              C_litter       C_soilmineral   
+##  Min.   :    4.0   Min.   :    0.0   Min.   :    0.002   Min.   :    0.0   Min.   :    70  
+##  1st Qu.:  175.5   1st Qu.:  124.5   1st Qu.:   83.250   1st Qu.:  282.5   1st Qu.:  3600  
+##  Median :  448.8   Median :  323.0   Median :  158.290   Median :  610.0   Median :  6560  
+##  Mean   : 1015.8   Mean   : 1900.3   Mean   :  316.216   Mean   : 1380.5   Mean   : 13649  
+##  3rd Qu.: 1250.0   3rd Qu.:  970.0   3rd Qu.:  269.000   3rd Qu.: 1354.0   3rd Qu.: 11850  
+##  Max.   :11580.0   Max.   :59328.0   Max.   :16350.000   Max.   :32875.0   Max.   :426000  
+##  NA&#39;s   :9802      NA&#39;s   :9945      NA&#39;s   :9555        NA&#39;s   :9806      NA&#39;s   :9267    
+##   C_soildepth        Notes          
+##  Min.   :  1.00   Length:10366      
+##  1st Qu.: 15.00   Class :character  
+##  Median : 30.00   Mode  :character  
+##  Mean   : 37.33                     
+##  3rd Qu.: 50.00                     
+##  Max.   :150.00                     
+##  NA&#39;s   :9661</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>soil_data <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code></pre></div>
+<pre><code>## Rows: 10,366
+## Columns: 85
+## $ Record_number      &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 2…
+## $ Entry_date         &lt;chr&gt; &quot;2008-09-26&quot;, &quot;2008-09-26&quot;, &quot;2008-09-26&quot;, &quot;2008-09-26&quot;, &quot;2008-09-26&quot;, &quot;2008-…
+## $ Study_number       &lt;int&gt; 2534, 2534, 2534, 2534, 2534, 2534, 2534, 2534, 2534, 2534, 2534, 2534, 2534…
+## $ Author             &lt;chr&gt; &quot;Bond-Lamberty&quot;, &quot;Bond-Lamberty&quot;, &quot;Bond-Lamberty&quot;, &quot;Bond-Lamberty&quot;, &quot;Bond-La…
+## $ Duplicate_record   &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, …
+## $ Quality_flag       &lt;chr&gt; &quot;Q02&quot;, &quot;Q02&quot;, &quot;Q02&quot;, &quot;Q02&quot;, &quot;Q02&quot;, &quot;Q02&quot;, &quot;Q02&quot;, &quot;Q02&quot;, &quot;Q02&quot;, &quot;Q02&quot;, &quot;Q02&quot;,…
+## $ Contributor        &lt;chr&gt; &quot;BBL&quot;, &quot;BBL&quot;, &quot;BBL&quot;, &quot;BBL&quot;, &quot;BBL&quot;, &quot;BBL&quot;, &quot;BBL&quot;, &quot;BBL&quot;, &quot;BBL&quot;, &quot;BBL&quot;, &quot;BBL&quot;,…
+## $ Country            &lt;chr&gt; &quot;Canada&quot;, &quot;Canada&quot;, &quot;Canada&quot;, &quot;Canada&quot;, &quot;Canada&quot;, &quot;Canada&quot;, &quot;Canada&quot;, &quot;Canad…
+## $ Region             &lt;chr&gt; &quot;Manitoba&quot;, &quot;Manitoba&quot;, &quot;Manitoba&quot;, &quot;Manitoba&quot;, &quot;Manitoba&quot;, &quot;Manitoba&quot;, &quot;Man…
+## $ Site_name          &lt;chr&gt; &quot;BOREAS NSA-D1998&quot;, &quot;BOREAS NSA-D1995&quot;, &quot;BOREAS NSA-D1989&quot;, &quot;BOREAS NSA-D198…
+## $ Site_ID            &lt;chr&gt; &quot;CA-BND-3YRWD&quot;, &quot;CA-BND-6YRWD&quot;, &quot;CA-BND-12YRWD&quot;, &quot;CA-BND-20YRWD&quot;, &quot;CA-BND-37…
+## $ Study_midyear      &lt;dbl&gt; 2001.5, 2001.5, 2001.5, 2001.5, 2001.5, 2001.5, 2001.5, 2001.5, 2001.5, 2001…
+## $ YearsOfData        &lt;dbl&gt; 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1…
+## $ Latitude           &lt;dbl&gt; 56.63, 56.46, 55.91, 55.86, 55.92, 55.91, 55.88, 56.63, 56.46, 55.90, 55.86,…
+## $ Longitude          &lt;dbl&gt; -99.94, -99.97, -98.98, -98.48, -98.39, -98.52, -98.48, -99.94, -99.98, -98.…
+## $ Elevation          &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+## $ Manipulation       &lt;chr&gt; &quot;None&quot;, &quot;None&quot;, &quot;None&quot;, &quot;None&quot;, &quot;None&quot;, &quot;None&quot;, &quot;None&quot;, &quot;None&quot;, &quot;None&quot;, &quot;Non…
+## $ Manipulation_level &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, …
+## $ Age_ecosystem      &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+## $ Age_disturbance    &lt;dbl&gt; 3, 6, 12, 20, 37, 71, 151, 3, 6, 12, 20, 37, 71, 151, 3, 6, 12, 20, 37, 71, …
+## $ Species            &lt;chr&gt; &quot;Picea mariana; Pinus banksiana; Populus tremuloides&quot;, &quot;Picea mariana; Pinus…
+## $ Biome              &lt;chr&gt; &quot;Boreal&quot;, &quot;Boreal&quot;, &quot;Boreal&quot;, &quot;Boreal&quot;, &quot;Boreal&quot;, &quot;Boreal&quot;, &quot;Boreal&quot;, &quot;Borea…
+## $ Ecosystem_type     &lt;chr&gt; &quot;Forest&quot;, &quot;Forest&quot;, &quot;Forest&quot;, &quot;Forest&quot;, &quot;Forest&quot;, &quot;Forest&quot;, &quot;Forest&quot;, &quot;Fores…
+## $ Ecosystem_state    &lt;chr&gt; &quot;Natural&quot;, &quot;Natural&quot;, &quot;Natural&quot;, &quot;Natural&quot;, &quot;Natural&quot;, &quot;Natural&quot;, &quot;Natural&quot;,…
+## $ Leaf_habit         &lt;chr&gt; &quot;Evergreen&quot;, &quot;Deciduous&quot;, &quot;Deciduous&quot;, &quot;Mixed&quot;, &quot;Evergreen&quot;, &quot;Evergreen&quot;, &quot;E…
+## $ Stage              &lt;chr&gt; &quot;Aggrading&quot;, &quot;Aggrading&quot;, &quot;Aggrading&quot;, &quot;Aggrading&quot;, &quot;Aggrading&quot;, &quot;Mature&quot;, &quot;…
+## $ Soil_type          &lt;chr&gt; &quot;Gray luvisol (Boralf)&quot;, &quot;Gray luvisol (Boralf)&quot;, &quot;Gray luvisol (Boralf)&quot;, &quot;…
+## $ Soil_drainage      &lt;chr&gt; &quot;Medium&quot;, &quot;Dry&quot;, &quot;Medium&quot;, &quot;Dry&quot;, &quot;Medium&quot;, &quot;Medium&quot;, &quot;Medium&quot;, &quot;Wet&quot;, &quot;Wet&quot;…
+## $ Soil_BD            &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+## $ Soil_CN            &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+## $ Soil_sand          &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+## $ Soil_silt          &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+## $ Soil_clay          &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+## $ MAT                &lt;dbl&gt; 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0…
+## $ MAP                &lt;dbl&gt; 450, 450, 450, 450, 450, 450, 450, 450, 450, 450, 450, 450, 450, 450, 450, 4…
+## $ PET                &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+## $ Study_temp         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+## $ Study_precip       &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+## $ Meas_method        &lt;chr&gt; &quot;IRGA&quot;, &quot;IRGA&quot;, &quot;IRGA&quot;, &quot;IRGA&quot;, &quot;IRGA&quot;, &quot;IRGA&quot;, &quot;IRGA&quot;, &quot;IRGA&quot;, &quot;IRGA&quot;, &quot;IRG…
+## $ Collar_height      &lt;dbl&gt; 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5…
+## $ Collar_depth       &lt;dbl&gt; 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4…
+## $ Chamber_area       &lt;dbl&gt; 854.87, 854.87, 854.87, 854.87, 854.87, 854.87, 854.87, 854.87, 854.87, 854.…
+## $ Time_of_day        &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, …
+## $ Meas_interval      &lt;dbl&gt; 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, …
+## $ Annual_coverage    &lt;dbl&gt; 0.35, 0.35, 0.35, 0.35, 0.35, 0.35, 0.35, 0.35, 0.35, 0.35, 0.35, 0.35, 0.35…
+## $ Partition_method   &lt;chr&gt; &quot;Exclusion&quot;, &quot;Exclusion&quot;, &quot;Exclusion&quot;, &quot;Exclusion&quot;, &quot;Exclusion&quot;, &quot;Exclusion&quot;…
+## $ Rs_annual          &lt;dbl&gt; 255, 85, 425, 551, 484, 540, 375, 137, 513, 337, 570, 397, 338, 375, 226, 41…
+## $ Rs_annual_err      &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+## $ Rs_interann_err    &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+## $ Rlitter_annual     &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+## $ Ra_annual          &lt;dbl&gt; -7, 9, 140, 166, 106, 146, 46, 3, 15, 98, 216, 67, 48, 23, NA, NA, NA, NA, N…
+## $ Rh_annual          &lt;dbl&gt; 262, 76, 285, 385, 378, 394, 329, 134, 498, 239, 354, 330, 290, 352, NA, NA,…
+## $ RC_annual          &lt;dbl&gt; -0.03, 0.11, 0.33, 0.30, 0.22, 0.27, 0.12, 0.02, 0.03, 0.29, 0.38, 0.17, 0.1…
+## $ Rs_spring          &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+## $ Rs_summer          &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+## $ Rs_autumn          &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+## $ Rs_winter          &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+## $ Rs_growingseason   &lt;dbl&gt; 1.30, 0.60, 1.98, 2.75, 2.20, 2.27, 1.85, 0.66, 2.36, 1.65, 3.20, 2.08, 1.60…
+## $ Rs_wet             &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+## $ Rs_dry             &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+## $ RC_seasonal        &lt;dbl&gt; 0.00, 0.25, 0.40, 0.30, 0.24, 0.22, 0.13, 0.00, 0.09, 0.27, 0.37, 0.15, 0.18…
+## $ RC_season          &lt;chr&gt; &quot;Growing&quot;, &quot;Growing&quot;, &quot;Growing&quot;, &quot;Growing&quot;, &quot;Growing&quot;, &quot;Growing&quot;, &quot;Growing&quot;,…
+## $ GPP                &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+## $ ER                 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+## $ NEP                &lt;dbl&gt; -136, -134, -2, 43, 97, 112, -19, -76, 131, -30, 310, 174, 94, 11, -136, -13…
+## $ NPP                &lt;dbl&gt; 111.0, 188.5, 366.5, 403.0, 432.0, 362.0, 211.0, 74.0, 490.0, 261.0, 584.0, …
+## $ ANPP               &lt;dbl&gt; 106.0, 183.5, 354.1, 363.4, 377.2, 202.6, 147.1, 68.0, 456.4, 223.3, 556.1, …
+## $ BNPP               &lt;dbl&gt; 5.0, 20.3, 12.8, 39.7, 54.9, 159.4, 74.5, 6.0, 34.6, 37.7, 27.9, 49.4, 93.0,…
+## $ NPP_FR             &lt;dbl&gt; 5.0, 20.3, 12.8, 22.6, 36.0, 78.7, 74.5, 4.3, 34.6, 30.6, 27.4, 20.3, 42.0, …
+## $ TBCA               &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+## $ Litter_flux        &lt;dbl&gt; 0.0, 2.0, 17.5, 31.3, 30.8, 59.6, 33.5, 0.0, 1.0, 5.2, 6.1, 5.2, 19.8, 13.4,…
+## $ Rootlitter_flux    &lt;dbl&gt; 5.0, 20.3, 12.8, 22.6, 36.0, 78.7, 74.5, 4.3, 34.6, 30.6, 27.4, 20.3, 42.0, …
+## $ TotDet_flux        &lt;dbl&gt; 5.0, 22.3, 30.3, 53.9, 66.8, 138.3, 108.0, 4.3, 35.6, 35.8, 33.5, 25.5, 61.8…
+## $ Ndep               &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+## $ LAI                &lt;dbl&gt; 0.0, 0.1, 0.0, 0.9, 1.8, 6.8, 5.3, 0.0, 0.0, 0.0, 0.1, 0.3, 3.0, 1.1, 0.0, 0…
+## $ BA                 &lt;dbl&gt; 0.0, 0.5, 0.0, 4.1, 11.6, 36.7, 42.2, 0.0, 0.0, 0.0, 0.2, 2.2, 20.3, 16.6, 0…
+## $ C_veg_total        &lt;dbl&gt; 200, 160, 520, 1050, 2300, 6720, 8530, 90, 550, 740, 750, 2150, 3880, 3450, …
+## $ C_AG               &lt;dbl&gt; 80, 90, 400, 700, 1500, 5500, 7100, 20, 100, 350, 360, 1800, 3400, 3100, 80,…
+## $ C_BG               &lt;dbl&gt; 120, 70, 120, 350, 800, 1220, 1430, 70, 450, 390, 390, 350, 480, 350, 120, 7…
+## $ C_CR               &lt;dbl&gt; 70, 40, 70, 230, 600, 970, 1230, 40, 300, 260, 260, 200, 340, 250, 70, 40, 7…
+## $ C_FR               &lt;dbl&gt; 50, 30, 50, 120, 200, 250, 200, 30, 150, 130, 130, 150, 140, 100, 50, 30, 50…
+## $ C_litter           &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+## $ C_soilmineral      &lt;dbl&gt; 41800, 41800, 41800, 41800, 41800, 41800, 41800, NA, NA, NA, NA, NA, NA, NA,…
+## $ C_soildepth        &lt;int&gt; 70, 70, 70, 70, 70, 70, 70, NA, NA, NA, NA, NA, NA, NA, 70, 70, 70, 70, 70, …
+## $ Notes              &lt;chr&gt; &quot;LAI from Bond-Lamberty (2002); C from Wang (2003) and Gower (1997)&quot;, &quot;LAI f…</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> soil_data) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Biome))</span></code></pre></div>
+<p><img src="distributions_files/figure-html/unnamed-chunk-4-1.png" width="2100" /></p>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

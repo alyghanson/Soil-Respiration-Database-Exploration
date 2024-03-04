@@ -16,8 +16,13 @@ knitr::opts_chunk$set(dev='png', dpi=300, cache=TRUE)
 pdf.options(useDingbats = TRUE)
 ```
 
-The visualization developed here uses the `{terra}` and `{rasterVis}` packages to map the global 
-pattern of alpha, calculated using the CRU CL2 climate data set.  The maps also include a 
-world outline with coastlines and country borders.
+# About the Dataset:
+This data set was found specifically with this project in mind. When looking fo a set I searched for something that had a large range of features, and was distributed world wide...
 
-More introductory material...
+## Where did it come from?
+## Why did I choose it?
+## How to treat the set?
+## What will we do with it?
+## How is is calculated?
+## Who created it? 
+

@@ -1,6 +1,6 @@
 
 ---
-title: "GEOG4/590: R for Earth-System Science"
+title: "GEOG490 Soil Project"
 output: 
   html_document:
     fig_caption: no
@@ -16,10 +16,12 @@ knitr::opts_chunk$set(dev='png', dpi=300, cache=TRUE)
 pdf.options(useDingbats = TRUE)
 ```
 
-## Project web page for GEOG 4/595 *R for Earth-System Science* ##
+## Project web page for GEOG 495 *R for Earth-System Science Soil Data Project* ##
 	
 Topics covered here include:
 
-- An introduction to the project
-- A simple example of plotting a raster slice
-- (more to come…)
+- An introduction to the project and dataset.
+- The Data cleaning process.
+- Distribution of some key features.
+- Some prediction stuff hopefully.
+
