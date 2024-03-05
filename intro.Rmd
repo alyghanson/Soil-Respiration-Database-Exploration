@@ -16,13 +16,16 @@ knitr::opts_chunk$set(dev='png', dpi=300, cache=TRUE)
 pdf.options(useDingbats = TRUE)
 ```
 
-# About the Dataset:
-This data set was found specifically with this project in mind. When looking fo a set I searched for something that had a large range of features, and was distributed world wide...
+# About SRDB:
+A Global Database of Soil Respiration Data (SRDB) was updated in 2021 as Version 5.0 as a project by Oak Ridge National Labratory. This includes multiple files, the main of which include the data file, contribute information file, and the calculations used (more on this below). 
 
-## Where did it come from?
-## Why did I choose it?
-## How to treat the set?
-## What will we do with it?
-## How is is calculated?
-## Who created it? 
+The nature of this database is very interesting. The purpose is to cover a broad temporal and spatial scope, containing data from 2,266 publications pertaining to years between 1961 and 2017. This data covers various aspects of the soil respiration process, tracking the levels of carbon dioxide (CO_2) as living materials decompose. 
+
+The key to the features in the set:
+```{r}
+library(readr)
+features <- read_delim("SRDB_V5_1827/comp/srdb-data_fields_V5.txt", delim = ",")
+head(features, 100)
+```
+
 

@@ -368,14 +368,41 @@ Cleaning</h1>
 
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<p>First we will load the data and plot the locations of all the
-historic measurements by latitude and longitude.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;maps&quot;</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;mapdata&quot;</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;ggplot2&quot;</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;readr&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>background_map <span class="ot">&lt;-</span> <span class="fu">map_data</span>(<span class="st">&quot;worldHires&quot;</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>soil_samps <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;SRDB_V5_1827/data/srdb-data-V5.csv&quot;</span>)</span></code></pre></div>
+<p>Data Inspection and Cleaning:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>soil <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;SRDB_V5_1827/data/srdb-data-V5.csv&quot;</span>, <span class="at">col_types =</span> <span class="fu">cols</span>(<span class="at">.default =</span> <span class="st">&quot;c&quot;</span>))</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">head</span>(soil)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 85
+##   Record_number Entry_date Study_number Author   Duplicate_record Quality_flag Contributor Country Region
+##   &lt;chr&gt;         &lt;chr&gt;      &lt;chr&gt;        &lt;chr&gt;    &lt;chr&gt;            &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;   &lt;chr&gt; 
+## 1 1             2008-09-26 2534         Bond-La… &lt;NA&gt;             Q02          BBL         Canada  Manit…
+## 2 2             2008-09-26 2534         Bond-La… &lt;NA&gt;             Q02          BBL         Canada  Manit…
+## 3 3             2008-09-26 2534         Bond-La… &lt;NA&gt;             Q02          BBL         Canada  Manit…
+## 4 4             2008-09-26 2534         Bond-La… &lt;NA&gt;             Q02          BBL         Canada  Manit…
+## 5 5             2008-09-26 2534         Bond-La… &lt;NA&gt;             Q02          BBL         Canada  Manit…
+## 6 6             2008-09-26 2534         Bond-La… &lt;NA&gt;             Q02          BBL         Canada  Manit…
+## # ℹ 76 more variables: Site_name &lt;chr&gt;, Site_ID &lt;chr&gt;, Study_midyear &lt;chr&gt;, YearsOfData &lt;chr&gt;,
+## #   Latitude &lt;chr&gt;, Longitude &lt;chr&gt;, Elevation &lt;chr&gt;, Manipulation &lt;chr&gt;, Manipulation_level &lt;chr&gt;,
+## #   Age_ecosystem &lt;chr&gt;, Age_disturbance &lt;chr&gt;, Species &lt;chr&gt;, Biome &lt;chr&gt;, Ecosystem_type &lt;chr&gt;,
+## #   Ecosystem_state &lt;chr&gt;, Leaf_habit &lt;chr&gt;, Stage &lt;chr&gt;, Soil_type &lt;chr&gt;, Soil_drainage &lt;chr&gt;,
+## #   Soil_BD &lt;chr&gt;, Soil_CN &lt;chr&gt;, Soil_sand &lt;chr&gt;, Soil_silt &lt;chr&gt;, Soil_clay &lt;chr&gt;, MAT &lt;chr&gt;,
+## #   MAP &lt;chr&gt;, PET &lt;chr&gt;, Study_temp &lt;chr&gt;, Study_precip &lt;chr&gt;, Meas_method &lt;chr&gt;, Collar_height &lt;chr&gt;,
+## #   Collar_depth &lt;chr&gt;, Chamber_area &lt;chr&gt;, Time_of_day &lt;chr&gt;, Meas_interval &lt;chr&gt;, …</code></pre>
+</div>
+<div id="exploring-the-data" class="section level1">
+<h1>Exploring the Data:</h1>
+<p>First let’s look at where the data is from. Here we see the top 12
+most frequent countries represented in the set:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> soil) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Country))</span></code></pre></div>
+<p><img src="exploratory_cleaning_files/figure-html/unnamed-chunk-2-1.png" width="2100" />
+First we will load the data and plot the locations of all the historic
+measurements by latitude and longitude.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;maps&quot;</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;mapdata&quot;</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;ggplot2&quot;</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;readr&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>background_map <span class="ot">&lt;-</span> <span class="fu">map_data</span>(<span class="st">&quot;worldHires&quot;</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>soil_samps <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;SRDB_V5_1827/data/srdb-data-V5.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## Warning: One or more parsing issues, call `problems()` on your data frame for details, e.g.:
 ##   dat &lt;- vroom(...)
 ##   problems(dat)</code></pre>
@@ -387,14 +414,14 @@ historic measurements by latitude and longitude.</p>
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co">#adding our map:</span></span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(<span class="at">data =</span> background_map, <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">group =</span> group), <span class="at">fill =</span> <span class="st">&quot;lightgrey&quot;</span>) <span class="sc">+</span></span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> soil_samps, <span class="fu">aes</span>(<span class="at">x =</span> Longitude, <span class="at">y =</span> Latitude), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>  <span class="fu">coord_fixed</span>() <span class="sc">+</span></span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Map of Soil Sample Sites&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Longitude&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Latitude&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="co">#adding our map:</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(<span class="at">data =</span> background_map, <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">group =</span> group), <span class="at">fill =</span> <span class="st">&quot;lightgrey&quot;</span>) <span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> soil_samps, <span class="fu">aes</span>(<span class="at">x =</span> Longitude, <span class="at">y =</span> Latitude), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>  <span class="fu">coord_fixed</span>() <span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Map of Soil Sample Sites&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Longitude&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Latitude&quot;</span>)</span></code></pre></div>
 <pre><code>## Warning: Removed 383 rows containing missing values or values outside the scale range (`geom_point()`).</code></pre>
-<p><img src="exploratory_cleaning_files/figure-html/unnamed-chunk-3-1.png" width="2100" /></p>
+<p><img src="exploratory_cleaning_files/figure-html/unnamed-chunk-5-1.png" width="2100" /></p>
 </div>
 
 

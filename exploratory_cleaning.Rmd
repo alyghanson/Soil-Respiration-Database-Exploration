@@ -17,7 +17,18 @@ pdf.options(useDingbats = TRUE)
 ```
 
 # Introduction #
+Data Inspection and Cleaning:
+```{r}
+library(readr)
+soil <- read_csv("SRDB_V5_1827/data/srdb-data-V5.csv", col_types = cols(.default = "c"))
+head(soil)
+```
 
+# Exploring the Data:
+First let's look at where the data is from. Here we see the top 12 most frequent countries represented in the set:
+```{r}
+ggplot(data = soil) + geom_bar(mapping = aes(x = Country))
+```
 First we will load the data and plot the locations of all the historic measurements by latitude and longitude. 
 
 ```{r}
