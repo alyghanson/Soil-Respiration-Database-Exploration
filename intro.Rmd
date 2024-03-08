@@ -20,12 +20,9 @@ pdf.options(useDingbats = TRUE)
 A Global Database of Soil Respiration Data (SRDB) was updated in 2021 as Version 5.0 as a project by Oak Ridge National Labratory. This includes multiple files, the main of which include the data file, contribute information file, and the calculations used (more on this below). 
 
 The nature of this database is very interesting. The purpose is to cover a broad temporal and spatial scope, containing data from 2,266 publications pertaining to years between 1961 and 2017. This data covers various aspects of the soil respiration process, tracking the levels of carbon dioxide (CO_2) as living materials decompose. 
+In this project I am going to look at some specific features, which are listed below. 
 
-The key to the features in the set:
-```{r}
-library(readr)
-features <- read_delim("SRDB_V5_1827/comp/srdb-data_fields_V5.txt", delim = ",")
-head(features, 100)
-```
+My goal with this project is to build a model that is able to predict which country the data point comes from. To do this I am going to use regression, as a classification problem. If that proves unsucessfull I will use a different method.... EDIT ME
 
+An interesting feature of this dataset is that the creators have included Quality flags. This is a very useful feature to us because I can easily drop observations if they are of no use, for example the Quality flag Q10 - Potentally useful in the futre. This I am not going to use. I dont want potentally useful, what I want to use as my training an test sets are datums that are actually verrified and 
 
