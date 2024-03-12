@@ -1,0 +1,143 @@
+
+---
+title: "Choosing a Subset"
+output: 
+  html_document:
+    fig_caption: no
+    number_sections: no
+    toc: no
+    toc_float: false
+    collapsed: no.
+---
+
+```{r set-options, echo=FALSE}
+options(width = 105)
+knitr::opts_chunk$set(dev='png', dpi=300, cache=TRUE)
+pdf.options(useDingbats = TRUE)
+```
+
+```{r}
+# Set CRAN mirror directly
+options(repos = "https://cloud.r-project.org")
+
+# Now try installing the package
+install.packages("plyr")
+
+library("maps")
+library("mapdata")
+library("ggplot2")
+library("readr")
+library(plyr)
+```
+
+```{r}
+soil_data <- read.csv(file='./SRDB_V5_1827/data/srdb-data-V5.csv')
+names(soil_data)
+attach(soil_data)
+```
+Lets take a look at where the sample are from:
+```{r}
+background_map <- map_data("worldHires")
+soil_samps <- read_csv("SRDB_V5_1827/data/srdb-data-V5.csv")
+
+```
+```{r}
+#adding our map:
+ggplot() +
+  geom_polygon(data = background_map, aes(x = long, y = lat, group = group), fill = "lightgrey") +
+  geom_point(data = soil_samps, aes(x = Longitude, y = Latitude), color = "red", size = 0.5) +
+  coord_fixed() +
+  labs(title = "Map of Soil Sample Sites", x = "Longitude", y = "Latitude")
+```
+
+
+```{r}
+#getting the frequency of different countries:
+country_counts <- count(soil_data, 'Country')
+head(country_counts)
+```
+```{r}
+#lets sort them to see the most frequent countries:
+attach(country_counts)
+country_counts_sorted <- country_counts[order(-freq),]
+head(country_counts_sorted)
+```
+We can visualize this with a barplot:
+
+```{r}
+#create barplot:
+top_5 <- country_counts_sorted[1:5,]
+y_top_5 <- top_5[['freq']]
+x_top_5 <- top_5[['Country']]
+barplot(y_top_5, names.arg=x_top_5, horiz=TRUE, xlab = 'Frequency', main = 'Top 5 Countries Represented', las = 1, col = 'darkgreen')
+```
+We see here that China and the USA make up a very large part of this data set. I want to see which of the two has the lowest percentage of missing values, then I will choose that subset of the data to work on:
+
+## Subsetting China and USA:
+
+First we will only grab Countries China and USA:
+```{r}
+subset_list <- c("China", "USA")
+china_usa = soil_data[soil_data$Country %in% subset_list, ]
+```
+And we can now see which has a lower percentage of missing values, we will also look at the distribution of quality flags for each group, because this will give us a better idea about the nature of information contained there:
+
+```{r}
+china <- china_usa[china_usa$Country == "China",]
+percent_missing_china <- mean(is.na(china)) * 100
+percent_missing_china
+```
+Lets now look at the percent missing from USA:
+```{r}
+usa <- china_usa[china_usa$Country == "USA",]
+percent_mising_usa <- mean(is.na(usa)) * 100
+percent_mising_usa
+```
+Great we can see that china has a lower percentage of missing data. 
+
+#Inspection of Quality Flags:
+For reference we can describe each quality flag as follows: \
+Q0 default/none\
+Q01 estimated from figure\
+Q02 data from another study\
+Q03 data estimated--other\
+Q04 potentially useful future data\
+Q10 potential problem with data\
+Q11 suspected problem with data\
+Q12 known problem with data\
+Q13 duplicate\
+Q14 inconsistency\
+
+
+Lets take a look at the distribution of flags for each group:
+```{r}
+usa_qf_counts <- count(usa, "Quality_flag")
+china_qf_counts <- count(china, "Quality_flag")
+```
+```{r}
+usa_qf_counts
+```
+```{r}
+china_qf_counts
+```
+
+Alright we can pretty easily see that China has more data, and lest potental problems with the quality of each observation. 
+
+### Moving Forward with the China Subset:
+
+The next step is cleaning the data, addressing missing values, and selecting our features of interest. 
+
+The first thing we will do is select data in China with Quality flags = Q0 (or none), Q1, Q2, and Q3. I feel it would be potentially misleading or problematic to keep observations with the other QF's, we will then save as a data set and move on the the cleaning and feature selection section!
+```{r}
+ok_flags = c(NULL, "Q01", "Q1", "Q02", "Q03")
+china_soil_respiration <- soil_data[(soil_data$Country == "China") & (soil_data$Quality_flag %in% ok_flags), ]
+head(china_soil_respiration)
+```
+Now lets export this and move on to the next section: Data Cleaning and Feature Selection
+```{r}
+# Save the dataframe as a CSV file
+write.csv(china_soil_respiration, file = "china_soil_respiration.csv", row.names = FALSE)
+```
+
+
+

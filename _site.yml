@@ -7,10 +7,10 @@ navbar:
     menu:
     - text: "Introduction to Dataset"
       href: intro.html
-    - text: "Exploratory Data Analysis and cleaning"
-      href: exploratory_cleaning.html
-    - text: "Distribution of Key Features"
-      href: distributions.html
+    - text: "Choosing a Subset"
+      href: subsetting.html
+    - text: "Data Cleaning and Feature Selection"
+      href: cleaning.html
   right:
   - text: "About Project"
     href: about.html

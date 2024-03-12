@@ -21,7 +21,7 @@ pdf.options(useDingbats = TRUE)
 Topics covered here include:
 
 - An introduction to the project and dataset.
+- Choosing a subset of the data
 - The Data cleaning process.
-- Distribution of some key features.
 - Some prediction stuff hopefully.
 

@@ -1,0 +1,50 @@
+
+---
+title:  Exploratory Data Analysis and General Cleaning
+output:
+  html_document:
+    fig_caption: no
+    number_sections: no
+    toc: no
+    toc_float: false
+    collapsed: no
+---
+
+```{r set-options, echo=FALSE, strip.white=TRUE}
+options(width = 105)
+knitr::opts_chunk$set(dev='png', dpi=300, cache=TRUE)
+pdf.options(useDingbats = TRUE)
+```
+
+# Introduction #
+Data Inspection and Cleaning:
+```{r}
+library("maps")
+library("mapdata")
+library(sf)
+library("ggplot2")
+library("readr")
+```
+
+```{r}
+#read in our data:
+china <- read_csv("china_soil_respiration.csv")
+
+#lets get a summary of what we have here:
+summary(china)
+```
+Great, 
+
+
+```{r}
+china_map = map_data("worldHires", region = "china")
+```
+```{r}
+#adding our map:
+ggplot() +
+  geom_polygon(data = china_map, aes(x = long, y = lat, group = group), fill = "lightblue", color='black') +
+  geom_point(data = china, aes(x = Longitude, y = Latitude), color = "red", size = 0.5) +
+  coord_map(projection = "mercator") + 
+  labs(title = "Map of Soil Sample Sites in China", x = "Longitude", y = "Latitude");
+```
+

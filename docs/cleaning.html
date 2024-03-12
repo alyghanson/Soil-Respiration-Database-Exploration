@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Exploratory Data Analysis and General Cleaning</title>
+
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/sandstone.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; } /* Alert */
+code span.an { color: #008000; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #0000ff; } /* ControlFlow */
+code span.ch { color: #008080; } /* Char */
+code span.cn { } /* Constant */
+code span.co { color: #008000; } /* Comment */
+code span.cv { color: #008000; } /* CommentVar */
+code span.do { color: #008000; } /* Documentation */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.im { } /* Import */
+code span.in { color: #008000; } /* Information */
+code span.kw { color: #0000ff; } /* Keyword */
+code span.op { } /* Operator */
+code span.ot { color: #ff4000; } /* Other */
+code span.pp { color: #ff4000; } /* Preprocessor */
+code span.sc { color: #008080; } /* SpecialChar */
+code span.ss { color: #008080; } /* SpecialString */
+code span.st { color: #008080; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #008080; } /* VerbatimString */
+code span.wa { color: #008000; font-weight: bold; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link rel="stylesheet" href="html-md-01.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Soil Project:  R for Earth-System Science Final</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Topics
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="intro.html">Introduction to Dataset</a>
+    </li>
+    <li>
+      <a href="subsetting.html">Choosing a Subset</a>
+    </li>
+    <li>
+      <a href="cleaning.html">Data Cleaning and Feature Selection</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="about.html">About Project</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Exploratory Data Analysis and General
+Cleaning</h1>
+
+</div>
+
+
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>Data Inspection and Cleaning:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;maps&quot;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;mapdata&quot;</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(sf)</span></code></pre></div>
+<pre><code>## Linking to GEOS 3.11.0, GDAL 3.5.3, PROJ 9.1.0; sf_use_s2() is TRUE</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;ggplot2&quot;</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;readr&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co">#read in our data:</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>china <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;china_soil_respiration.csv&quot;</span>)</span></code></pre></div>
+<pre><code>## Rows: 663 Columns: 85
+## ── Column specification ─────────────────────────────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (23): Entry_date, Author, Quality_flag, Contributor, Country, Region, Site_name, Site_ID, Manipul...
+## dbl (55): Record_number, Study_number, Study_midyear, YearsOfData, Latitude, Longitude, Elevation, Ag...
+## lgl  (7): Duplicate_record, Rs_spring, Rs_summer, Rs_autumn, Rs_winter, Rootlitter_flux, TotDet_flux
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="co">#lets get a summary of what we have here:</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="fu">summary</span>(china)</span></code></pre></div>
+<pre><code>##  Record_number   Entry_date         Study_number      Author          Duplicate_record
+##  Min.   : 276   Length:663         Min.   : 1426   Length:663         Mode:logical    
+##  1st Qu.:6322   Class :character   1st Qu.: 7593   Class :character   NA&#39;s:663        
+##  Median :7540   Mode  :character   Median : 8576   Mode  :character                   
+##  Mean   :6809                      Mean   : 8455                                      
+##  3rd Qu.:8228                      3rd Qu.:10483                                      
+##  Max.   :9548                      Max.   :11481                                      
+##                                                                                       
+##  Quality_flag       Contributor          Country             Region           Site_name        
+##  Length:663         Length:663         Length:663         Length:663         Length:663        
+##  Class :character   Class :character   Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+##                                                                                                
+##                                                                                                
+##                                                                                                
+##                                                                                                
+##    Site_ID          Study_midyear   YearsOfData      Latitude       Longitude        Elevation     
+##  Length:663         Min.   :1997   Min.   :0.50   Min.   :18.60   Min.   : 81.38   Min.   :   2.5  
+##  Class :character   1st Qu.:2010   1st Qu.:1.00   1st Qu.:30.52   1st Qu.:101.20   1st Qu.: 600.0  
+##  Mode  :character   Median :2012   Median :1.00   Median :37.53   Median :112.13   Median :1324.0  
+##                     Mean   :2010   Mean   :1.08   Mean   :36.18   Mean   :109.14   Mean   :1770.0  
+##                     3rd Qu.:2012   3rd Qu.:1.00   3rd Qu.:42.41   3rd Qu.:116.80   3rd Qu.:2476.0  
+##                     Max.   :2016   Max.   :3.00   Max.   :51.14   Max.   :128.89   Max.   :5100.0  
+##                     NA&#39;s   :7      NA&#39;s   :4      NA&#39;s   :24      NA&#39;s   :24       NA&#39;s   :241     
+##  Manipulation       Manipulation_level Age_ecosystem    Age_disturbance    Species         
+##  Length:663         Length:663         Min.   :  1.00   Min.   :  0.00   Length:663        
+##  Class :character   Class :character   1st Qu.: 11.75   1st Qu.:  3.00   Class :character  
+##  Mode  :character   Mode  :character   Median : 21.00   Median : 20.00   Mode  :character  
+##                                        Mean   : 33.01   Mean   : 28.54                     
+##                                        3rd Qu.: 50.00   3rd Qu.: 40.00                     
+##                                        Max.   :300.00   Max.   :400.00                     
+##                                        NA&#39;s   :587      NA&#39;s   :518                        
+##     Biome           Ecosystem_type     Ecosystem_state     Leaf_habit           Stage          
+##  Length:663         Length:663         Length:663         Length:663         Length:663        
+##  Class :character   Class :character   Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+##                                                                                                
+##                                                                                                
+##                                                                                                
+##                                                                                                
+##   Soil_type         Soil_drainage         Soil_BD         Soil_CN        Soil_sand       Soil_silt    
+##  Length:663         Length:663         Min.   :0.520   Min.   : 1.85   Min.   : 6.00   Min.   : 7.00  
+##  Class :character   Class :character   1st Qu.:1.130   1st Qu.: 9.35   1st Qu.:31.85   1st Qu.:20.30  
+##  Mode  :character   Mode  :character   Median :1.230   Median :12.55   Median :62.75   Median :20.30  
+##                                        Mean   :1.185   Mean   :13.42   Mean   :48.23   Mean   :31.35  
+##                                        3rd Qu.:1.310   3rd Qu.:16.17   3rd Qu.:62.75   3rd Qu.:42.00  
+##                                        Max.   :1.700   Max.   :66.67   Max.   :95.00   Max.   :78.00  
+##                                        NA&#39;s   :490     NA&#39;s   :504     NA&#39;s   :560     NA&#39;s   :564    
+##    Soil_clay          MAT              MAP              PET         Study_temp      Study_precip   
+##  Min.   : 9.00   Min.   :-5.600   Min.   : 102.0   Min.   : 785   Min.   :-3.800   Min.   : 238.8  
+##  1st Qu.:16.95   1st Qu.: 1.800   1st Qu.: 350.9   1st Qu.:1094   1st Qu.: 1.910   1st Qu.: 290.0  
+##  Median :16.95   Median : 6.800   Median : 450.0   Median :1660   Median : 2.380   Median : 382.1  
+##  Mean   :22.27   Mean   : 7.096   Mean   : 664.1   Mean   :1564   Mean   : 7.013   Mean   : 629.0  
+##  3rd Qu.:25.00   3rd Qu.:12.900   3rd Qu.: 786.3   3rd Qu.:2000   3rd Qu.:16.750   3rd Qu.: 757.0  
+##  Max.   :56.30   Max.   :25.000   Max.   :2198.0   Max.   :2400   Max.   :21.100   Max.   :2198.0  
+##  NA&#39;s   :539     NA&#39;s   :47       NA&#39;s   :49       NA&#39;s   :531    NA&#39;s   :614      NA&#39;s   :597     
+##  Meas_method        Collar_height    Collar_depth     Chamber_area     Time_of_day       
+##  Length:663         Min.   : 4.40   Min.   : 1.500   Min.   :  51.25   Length:663        
+##  Class :character   1st Qu.: 5.00   1st Qu.: 2.500   1st Qu.:  86.50   Class :character  
+##  Mode  :character   Median : 8.00   Median : 3.000   Median : 314.00   Mode  :character  
+##                     Mean   :11.72   Mean   : 4.484   Mean   : 403.90                     
+##                     3rd Qu.:15.00   3rd Qu.: 5.000   3rd Qu.: 323.49                     
+##                     Max.   :50.00   Max.   :40.000   Max.   :3700.00                     
+##                     NA&#39;s   :350     NA&#39;s   :65       NA&#39;s   :30                          
+##  Meas_interval    Annual_coverage  Partition_method     Rs_annual       Rs_annual_err   Rs_interann_err 
+##  Min.   :  0.10   Min.   :0.2000   Length:663         Min.   :  79.24   Min.   : 10.0   Min.   : 11.00  
+##  1st Qu.:  8.60   1st Qu.:0.3300   Class :character   1st Qu.: 480.93   1st Qu.: 32.9   1st Qu.: 12.50  
+##  Median : 14.00   Median :0.5800   Mode  :character   Median : 700.00   Median : 67.0   Median : 42.00  
+##  Mean   : 19.88   Mean   :0.6563                      Mean   : 721.74   Mean   : 81.6   Mean   : 89.43  
+##  3rd Qu.: 30.00   3rd Qu.:1.0000                      3rd Qu.: 908.00   3rd Qu.: 96.5   3rd Qu.:148.50  
+##  Max.   :120.00   Max.   :1.0000                      Max.   :2062.00   Max.   :321.7   Max.   :251.00  
+##  NA&#39;s   :98       NA&#39;s   :74                          NA&#39;s   :404       NA&#39;s   :605     NA&#39;s   :656     
+##  Rlitter_annual    Ra_annual       Rh_annual         RC_annual     Rs_spring      Rs_summer     
+##  Min.   :114.0   Min.   : 55.0   Min.   :  67.51   Min.   :0.200   Mode:logical   Mode:logical  
+##  1st Qu.:167.0   1st Qu.:235.6   1st Qu.: 211.62   1st Qu.:0.330   NA&#39;s:663       NA&#39;s:663      
+##  Median :236.0   Median :397.0   Median : 292.98   Median :0.385                                
+##  Mean   :312.3   Mean   :370.8   Mean   : 424.94   Mean   :0.490                                
+##  3rd Qu.:363.0   3rd Qu.:485.0   3rd Qu.: 592.36   3rd Qu.:0.750                                
+##  Max.   :776.0   Max.   :928.0   Max.   :1438.00   Max.   :0.900                                
+##  NA&#39;s   :656     NA&#39;s   :630     NA&#39;s   :615       NA&#39;s   :625                                  
+##  Rs_autumn      Rs_winter      Rs_growingseason     Rs_wet          Rs_dry       RC_seasonal    
+##  Mode:logical   Mode:logical   Min.   :0.1621   Min.   :0.800   Min.   :0.810   Min.   :0.1700  
+##  NA&#39;s:663       NA&#39;s:663       1st Qu.:1.4565   1st Qu.:1.340   1st Qu.:1.420   1st Qu.:0.3380  
+##                                Median :2.0200   Median :1.867   Median :1.900   Median :0.5400  
+##                                Mean   :2.1780   Mean   :2.260   Mean   :1.951   Mean   :0.4711  
+##                                3rd Qu.:2.8450   3rd Qu.:2.720   3rd Qu.:2.555   3rd Qu.:0.5900  
+##                                Max.   :7.5100   Max.   :5.700   Max.   :3.600   Max.   :0.7000  
+##                                NA&#39;s   :384      NA&#39;s   :626     NA&#39;s   :628     NA&#39;s   :642     
+##   RC_season              GPP             ER              NEP              NPP               ANPP       
+##  Length:663         Min.   :1511   Min.   : 268.7   Min.   :-193.0   Min.   :  57.52   Min.   : 92.84  
+##  Class :character   1st Qu.:1533   1st Qu.: 868.6   1st Qu.: 102.8   1st Qu.: 189.41   1st Qu.:124.10  
+##  Mode  :character   Median :1555   Median :1054.2   Median : 229.8   Median : 469.00   Median :182.70  
+##                     Mean   :1555   Mean   :1027.2   Mean   : 204.6   Mean   : 576.98   Mean   :199.18  
+##                     3rd Qu.:1577   3rd Qu.:1290.8   3rd Qu.: 287.8   3rd Qu.: 719.20   3rd Qu.:265.27  
+##                     Max.   :1598   Max.   :1706.8   Max.   : 675.3   Max.   :2279.00   Max.   :386.00  
+##                     NA&#39;s   :661    NA&#39;s   :620      NA&#39;s   :644      NA&#39;s   :616       NA&#39;s   :624     
+##       BNPP           NPP_FR            TBCA         Litter_flux    Rootlitter_flux TotDet_flux   
+##  Min.   : 50.0   Min.   : 77.00   Min.   : 388.0   Min.   :226.0   Mode:logical    Mode:logical  
+##  1st Qu.: 70.0   1st Qu.: 95.75   1st Qu.: 446.0   1st Qu.:245.0   NA&#39;s:663        NA&#39;s:663      
+##  Median :125.0   Median :102.00   Median : 504.0   Median :315.0                                 
+##  Mean   :140.4   Mean   : 96.75   Mean   : 715.3   Mean   :336.3                                 
+##  3rd Qu.:218.0   3rd Qu.:103.00   3rd Qu.: 879.0   3rd Qu.:428.0                                 
+##  Max.   :245.0   Max.   :106.00   Max.   :1254.0   Max.   :533.0                                 
+##  NA&#39;s   :654     NA&#39;s   :659      NA&#39;s   :660      NA&#39;s   :638                                   
+##       Ndep          LAI               BA         C_veg_total            C_AG               C_BG         
+##  Min.   :0.7   Min.   : 1.065   Min.   : 3.63   Min.   :   81.05   Min.   :   22.27   Min.   :    7.40  
+##  1st Qu.:0.7   1st Qu.: 3.325   1st Qu.:28.65   1st Qu.:   96.80   1st Qu.:   54.98   1st Qu.:   42.85  
+##  Median :0.7   Median : 5.600   Median :34.20   Median :  144.15   Median :  129.78   Median :  282.85  
+##  Mean   :0.7   Mean   : 5.332   Mean   :52.31   Mean   : 3929.33   Mean   : 3470.84   Mean   : 1355.74  
+##  3rd Qu.:0.7   3rd Qu.: 6.375   3rd Qu.:91.00   3rd Qu.:  675.90   3rd Qu.: 1075.67   3rd Qu.: 1343.75  
+##  Max.   :0.7   Max.   :11.500   Max.   :91.00   Max.   :34150.00   Max.   :26800.00   Max.   :10910.05  
+##  NA&#39;s   :660   NA&#39;s   :637      NA&#39;s   :603     NA&#39;s   :635        NA&#39;s   :623        NA&#39;s   :609       
+##       C_CR              C_FR           C_litter       C_soilmineral    C_soildepth    
+##  Min.   :   0.00   Min.   : 35.99   Min.   :   0.62   Min.   : 3950   Min.   : 10.00  
+##  1st Qu.:   0.00   1st Qu.: 42.85   1st Qu.: 173.00   1st Qu.: 5322   1st Qu.: 10.00  
+##  Median :  42.48   Median : 84.36   Median : 253.00   Median : 5720   Median : 20.00  
+##  Mean   : 314.08   Mean   :119.75   Mean   : 552.97   Mean   : 8693   Mean   : 30.11  
+##  3rd Qu.: 208.66   3rd Qu.:159.57   3rd Qu.: 350.00   3rd Qu.: 8502   3rd Qu.: 45.00  
+##  Max.   :2040.00   Max.   :365.00   Max.   :4700.00   Max.   :26860   Max.   :100.00  
+##  NA&#39;s   :635       NA&#39;s   :625      NA&#39;s   :642       NA&#39;s   :639     NA&#39;s   :619     
+##     Notes          
+##  Length:663        
+##  Class :character  
+##  Mode  :character  
+##                    
+##                    
+##                    
+## </code></pre>
+<p>Great,</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>china_map <span class="ot">=</span> <span class="fu">map_data</span>(<span class="st">&quot;worldHires&quot;</span>, <span class="at">region =</span> <span class="st">&quot;china&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co">#adding our map:</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(<span class="at">data =</span> china_map, <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">group =</span> group), <span class="at">fill =</span> <span class="st">&quot;lightblue&quot;</span>, <span class="at">color=</span><span class="st">&#39;black&#39;</span>) <span class="sc">+</span></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> china, <span class="fu">aes</span>(<span class="at">x =</span> Longitude, <span class="at">y =</span> Latitude), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>  <span class="fu">coord_map</span>(<span class="at">projection =</span> <span class="st">&quot;mercator&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Map of Soil Sample Sites in China&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Longitude&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Latitude&quot;</span>);</span></code></pre></div>
+<pre><code>## Warning: Removed 24 rows containing missing values or values outside the scale range (`geom_point()`).</code></pre>
+<p><img src="cleaning_files/figure-html/unnamed-chunk-4-1.png" width="2100" /></p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

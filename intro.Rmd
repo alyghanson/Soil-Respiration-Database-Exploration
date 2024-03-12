@@ -17,12 +17,19 @@ pdf.options(useDingbats = TRUE)
 ```
 
 # About SRDB:
+![SRDB Distribution of Data](./SRDB_V5_Figure1.jpg){}
 A Global Database of Soil Respiration Data (SRDB) was updated in 2021 as Version 5.0 as a project by Oak Ridge National Labratory. This includes multiple files, the main of which include the data file, contribute information file, and the calculations used (more on this below). 
 
 The nature of this database is very interesting. The purpose is to cover a broad temporal and spatial scope, containing data from 2,266 publications pertaining to years between 1961 and 2017. This data covers various aspects of the soil respiration process, tracking the levels of carbon dioxide (CO_2) as living materials decompose. 
-In this project I am going to look at some specific features, which are listed below. 
+In this project I will attempt to capture some of the story within the data set, because this set has a historic nature. not all features have very much data, why is this the case? Maybe because the nature of the studies being done have changed. 
 
-My goal with this project is to build a model that is able to predict which country the data point comes from. To do this I am going to use regression, as a classification problem. If that proves unsucessfull I will use a different method.... EDIT ME
+In 2017 this data set translated both Chinese and Russian data sets in an atempt to make the overall data set more representative of the information in journals on soil respiration, this broaden the spatial scope greatly, and in order to tell the story well I will subset this data set to look at data pertaining to a ingle country that has the highest frequency of occurrences. 
 
-An interesting feature of this dataset is that the creators have included Quality flags. This is a very useful feature to us because I can easily drop observations if they are of no use, for example the Quality flag Q10 - Potentally useful in the futre. This I am not going to use. I dont want potentally useful, what I want to use as my training an test sets are datums that are actually verrified and 
+We will:\\
+1. Talk about missing values
+2. Inspect environment of observations:\\
+3. Ask the question - Have those environemnts changed over time?\\
+
+
+An interesting feature of this dataset is that the creators have included Quality flags. This is a very useful feature to us because I can easily drop observations if they are of no use, for example the Quality flag Q10 - Potentally useful in the future. This I am not going to use. I don't want potentally useful, or data that has been corrupted.
 
