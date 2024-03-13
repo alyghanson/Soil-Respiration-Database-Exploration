@@ -17,12 +17,28 @@ pdf.options(useDingbats = TRUE)
 ```
 
 ## Project web page for GEOG 495 *R for Earth-System Science Soil Data Project* ##
-	
-Topics covered here include:
+A project exploring a sparse data set, asking an exploratory question about the mean differences in Minimum and Maximum annual soil respiration values specifically in China, and simulating the bootstrap method to explore the means of those differences:\
 
-- An introduction to the project and data set.
-- Choosing a subset of the data.
-- Distributions in the data set.
-- Predictive modeling given small amounts of data.
-- Some prediction stuff hopefully.
+Parts of this project include:\
+- An Introduction to the Data Set & Nature of the Project:\
+  - Who created it\
+  - How it was accumulated\
+  - Potential problems with the data\
+  - Goals\
+- Selecting a subset & exploring the data: Comparing Quality of Data Between Two Countries\
+  - Defining a purpose for the data subset\
+  - Which feature should we investigate further\
+  - Investigating the quality of data\
+- Data Cleaning for an exploratory purpose: China's Annual Soil Respiration\
+  - How do we deal with missing values\
+  - Selecting features to answer an exploratory question\
+  - Potential problems with the data set now that it is cleaned\
+- Bootstrapping: Estimating Confidence in Mean Differences from 1999 - 2015\
+  - What is the bootstrap method\
+  - Why would we use it here\
+  - The simulated values and associated confidence intervals\
+- Conclusion: \
+
+
+  
 

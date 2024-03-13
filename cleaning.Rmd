@@ -16,8 +16,8 @@ knitr::opts_chunk$set(dev='png', dpi=300, cache=TRUE)
 pdf.options(useDingbats = TRUE)
 ```
 
-# Introduction #
-Data Inspection and Cleaning:
+# Data Inspection and Cleaning: The China Subset #
+
 ```{r}
 library("maps")
 library("mapdata")
@@ -35,56 +35,60 @@ china <- read_csv("china_soil_respiration.csv")
 summary(china)
 ```
 Great, we see the length of this set is 663, and we have a very large amount of NULL values which is one of the main obsicles with this dataset.
+
+## How many NULL Values?
+
 ```{r}
 colSums(is.na(china))
 ```
 
-Great, now lets drop all the rows that don't contain information about the annual Soil respiration (the column Rs_annual), and drop the empty columns because those will render useles to us.
+Great, now lets drop all the rows that don't contain information about the annual Soil Respiration (the column Rs_annual), and drop the empty columns because those will render useless to us.
 ```{r}
-#drop rows with no annual rs:
+#drop rows with no annual rs, and no geographical location (I normally wouldnt worry too much, but it's a geography course, and we might want to view these points on a map):
+
+#drop empties
 china <- china %>% drop_na(Rs_annual)
 china <-  china %>% drop_na(Longitude)
 china <- china %>% drop_na(Latitude)
-#drop cols with no data:
+
+#proportion empty
 na_props <- colMeans(is.na(china))
-na_props
+
+#select all that are not 100% empty
 full_columns <- na_props != 1
-full_columns
+
 #keep only those columns
 cleaned_china <- china[, full_columns]
-cleaned_china 
 ```
+Okay that seems much better, let's take a look at the distribution of soil respiration:
 
-
-Okay that seems much better, lets take a look at the distribution of soil respiration:
+## Distribution of Annual Soil Respiration:
 
 ```{r}
-hist(cleaned_china$Rs_annual)
-```
-```{r}
-#hist(cleaned_china$Latitude)
-```
-```{r}
-#hist(cleaned_china$Longitude)
+hist(cleaned_china$Rs_annual, main = "Distribution of Anual Soil Respiration: China 1995 - 2015", xlab = "Annual Respiration (g Cm^(-2))", color="darkgreen")
 ```
 
+And similarly to our last section I want to see the geographical distribution of this new cleaned data subset. 
 
+## Graphing the new cleaned data set:
 ```{r}
+#Make a base map
 china_map = map_data("worldHires", region = "china")
-```
-```{r}
+
+#added noise to the points x and y values
+#color by Rs_annual
 ggplot() +
   geom_polygon(data = china_map, aes(x = long, y = lat, group = group), fill = "lightblue", color='black') +
   geom_point(data = cleaned_china, aes(x = Longitude+rnorm(n=nrow(cleaned_china)), y = Latitude+rnorm(n=nrow(cleaned_china)), color=Rs_annual)) +
   coord_map(projection = "mercator") + 
   labs(title = "Map of Soil Sample Sites in China", x = "Longitude", y = "Latitude")
 ```
-Great now lets take a looka th the mean anual RS over the course of the studies here:
+Great, We can see here that there is a pretty wide range of values of Annual Respiration. I am now goign to ask the question, what is the average difference between the Maximum and Minimum Annual Soil Respiration values in China?
 
-First we need to calculate the mean for each year:
-```{r}
-names(cleaned_china)
-```
+
+## Thinking about The Average Difference of Minimum and Maximum Annual Soil Respiration:
+
+First lets calculate the median for each year (mostly to increase understanding in the data):
 
 ```{r}
 Rs_median <- cleaned_china %>% group_by(Study_midyear) %>% summarize(Median = median(Rs_annual), High = max(Rs_annual), Min = min(Rs_annual))
@@ -96,13 +100,15 @@ mmm <- ggplot(Rs_median, aes(x = Study_midyear)) +
   geom_line(aes(y = Median, color = "Median")) +
   geom_line(aes(y = High, color = "Maximum")) +
   geom_line(aes(y = Min, color = "Minimum")) +
-  labs(x = "Study Midyear", y = "Rs Annual", title = "Median, Maximum, and Minimum Rs Annual Over Study Midyear") +
+  labs(x = "Study Year", y = "Annual Soil Respiration (g Cm^(-2))", title = "Median, Maximum, and Minimum Soil Respiration in China") +
   scale_color_manual(values = c("Median" = "darkblue", "Maximum" = "darkred", "Minimum" = "darkgreen")) +
   theme_minimal()
 mmm
 ```
 
-We see here the temporal changes from 1999 to 2015, and we see how the soil respiration really fluctuates from ear to year with and interesting pattern. what is very interesting to me are the gaps between the min and max values for each year. This is what we will investigate int he next section. 
+We see here the temporal changes from 1999 to 2015, and we see how the soil respiration really fluctuates from year to year with an interesting pattern, it looks like the gap between the min and max values really increase as time goes on (with the exception of 2015 especially, which again may be due to lack of data). What is very interesting to me are the gaps between the min and max values for each year. This is what we will investigate in the next section, by sampling the small subset we are left with and calculating a distribution of total mean differences between the max and min values. 
+
+
 
 
 ```{r}

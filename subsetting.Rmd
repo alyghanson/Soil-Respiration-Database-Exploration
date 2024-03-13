@@ -9,7 +9,7 @@ output:
     toc_float: false
     collapsed: no.
 ---
-
+### Getting to Know Our Data Set
 ```{r set-options, echo=FALSE}
 options(width = 105)
 knitr::opts_chunk$set(dev='png', dpi=300, cache=TRUE)
@@ -17,7 +17,7 @@ pdf.options(useDingbats = TRUE)
 ```
 
 ```{r}
-# Set CRAN mirror directly
+#Set CRAN mirror directly
 options(repos = "https://cloud.r-project.org")
 
 # Now try installing the package
@@ -28,57 +28,78 @@ library("maps")
 library("mapdata")
 library("ggplot2")
 library("readr")
+library("tidyverse")
 library(plyr)
 ```
-Lets take a look at where the sample are from:
+Lets take a look at where the samples are from and get a little gauge of what is going on here, note: there are going to be some problems because we have yet to subset and clean our data, for example, some data points don't have Lat and Long values:
 ```{r}
+#create a base map
 background_map <- map_data("worldHires")
+
+#load in the soil data
 soil_data <- read_csv("SRDB_V5_1827/data/srdb-data-V5.csv")
-
 ```
+
+Now lets look at the columns the dataset contains:
 ```{r}
-#adding our map:
-RS_mean = mean(soil_data$Rs_annual)
-
-ggplot() +
-  geom_polygon(data = background_map, aes(x = long, y = lat, group = group), fill = "lightgrey") +
-  geom_point(data = soil_data, aes(x = Longitude+rnorm(n=nrow(soil_data)), y = Latitude+rnorm(nrow(soil_data)), color=Biome), size = 0.5, alpha=.25, shape=4) +
-  coord_fixed() +
-  labs(title = "Map of Soil Sample Sites", x = "Longitude", y = "Latitude") 
-#scale_color_gradient( low = "brown", high = "green", space = "Lab" )
+names(soil_data)
 ```
+Great we have a bunch!
 
+## Visual Geographic Distribution of Points
+```{r}
+#Lets color the points by biome, just to look:
+ggplot() +
+  #create the polygon map
+  geom_polygon(data = background_map, aes(x = long, y = lat, group = group), fill = "lightgrey") +
+  #add points to graph -> colored by biome
+  geom_point(data = soil_data, aes(x = Longitude+rnorm(n=nrow(soil_data)), y = Latitude+rnorm(nrow(soil_data)), color=Biome), size = 0.5, alpha=.25, shape=4) +
+  #project
+  coord_fixed() +
+  #graph text
+  labs(title = "Map of Soil Sample Sites", x = "Longitude", y = "Latitude") 
+```
+We can see some of the globe has a very space distribution of information, I am thinking of subseting the data to get a better picture of just one country.
+
+## Distribution of Country Representation:
 
 ```{r}
 #getting the frequency of different countries:
 country_counts <- count(soil_data, 'Country')
 head(country_counts)
 ```
+It seems like the frequency of datapoints per country is unsorted, we should look at them in order. I am starting to think we will want to look at some of the top represented countries for the next step of our exporatory analysis, because they will most likely have the most information (because there are more data points present), and hopefully they aren't all NaN values. 
+
+## Looking at the top 5 Most Represented Countries
+
 ```{r}
 #lets sort them to see the most frequent countries:
 attach(country_counts)
-country_counts_sorted <- country_counts[order(-freq),]
+country_counts_sorted <- country_counts[order(-freq), ]
 head(country_counts_sorted)
 ```
-We can visualize this with a barplot:
+We can visualize this with a bar plot:
 
 ```{r}
-#create barplot:
+# Select the top five
 top_5 <- country_counts_sorted[1:5,]
 y_top_5 <- top_5[['freq']]
 x_top_5 <- top_5[['Country']]
+
+#Plot with a bar chart
 barplot(y_top_5, names.arg=x_top_5, horiz=TRUE, xlab = 'Frequency', main = 'Top 5 Countries Represented', las = 1, col = 'darkgreen')
 ```
-We see here that China and the USA make up a very large part of this data set. I want to see which of the two has the lowest percentage of missing values, then I will choose that subset of the data to work on:
+We see here that China and the USA make up a very large part of this data set. I want to see which of the two has the lowest percentage of missing values, then I will choose that subset of the data to look at deeper and work on moving forward.
 
-## Subsetting China and USA:
+## Subsetting China and USA & Quantifying Missing Data:
 
-First we will only grab Countries China and USA:
+First we will only grab countries China and USA:
 ```{r}
+#select only China and USA
 subset_list <- c("China", "USA")
 china_usa = soil_data[soil_data$Country %in% subset_list, ]
 ```
-And we can now see which has a lower percentage of missing values, we will also look at the distribution of quality flags for each group, because this will give us a better idea about the nature of information contained there:
+And we can now see which has a lower proportion of missing values, we will also look at the distribution of quality flags for each group, because this will give us a better idea about the nature of information contained there:
 
 ```{r}
 china <- china_usa[china_usa$Country == "China",]
@@ -91,9 +112,11 @@ usa <- china_usa[china_usa$Country == "USA",]
 percent_mising_usa <- mean(is.na(usa)) * 100
 percent_mising_usa
 ```
-Great we can see that china has a lower percentage of missing data. 
+Great we can see that china has a slightly lower percentage of missing data. 
 
-#Inspection of Quality Flags:
+Now let us look at the quality of data present, this data set makes it easier for us because they have included Quality flags which will gives us insight about the quality of data present in each observation.
+
+## Inspection of Quality Flags:
 For reference we can describe each quality flag as follows: \
 Q0 default/none\
 Q01 estimated from figure\
@@ -107,42 +130,47 @@ Q13 duplicate\
 Q14 inconsistency\
 
 
-Lets take a look at the distribution of flags for each group:
+Let's take a look at the distribution of flags for each group:
 ```{r}
+#count the occurences of each QF for each subset
 usa_qf_counts <- count(usa, "Quality_flag")
 china_qf_counts <- count(china, "Quality_flag")
 ```
 ```{r}
+#we can display the information:
 usa_qf_counts
 ```
 ```{r}
+#Same with the dataset pertaining to datapoints located in China
 china_qf_counts
 ```
 
-Alright we can pretty easily see that China has more data, and lest potental problems with the quality of each observation. 
+Alright we can pretty easily see that China has more data, and less potential problems with the quality of each observation. 
 
 ### Moving Forward with the China Subset:
 
 The next step is cleaning the data, addressing missing values, and selecting our features of interest. 
 
-The first thing we will do is select data in China with Quality flags = Q0 (or none), Q1, Q2, and Q3. I feel it would be potentially misleading or problematic to keep observations with the other QF's, we will then save as a data set and move on the the cleaning and feature selection section!
+The first thing we will do is select data in China with quality flags = Q0 (or none), Q1, Q2, and Q3. I feel it would be potentially misleading or problematic to keep observations with the other QF's, we will then save as a data set and move on to the cleaning and feature selection section!
 ```{r}
 ok_flags = c(NULL, "Q01", "Q1", "Q02", "Q03")
+#subset based on the above criteria:
 china_soil_respiration <- soil_data[(soil_data$Country == "China") & (soil_data$Quality_flag %in% ok_flags), ]
 head(china_soil_respiration)
 ```
 
+For fun we can look at the data we have that contains Lat, Long, and Annual Respiration values geographically.
 
-#Map of New Dataset: 
+# Map of New Dataset: 
 
 ```{r}
 #adding our map:
-#Note the added random noise to see points clustered together at simmilar or the same tesing sites
+#Note the added random noise to see points clustered together at similar or the same testing sites
 ggplot() +
   geom_polygon(data = background_map, aes(x = long, y = lat, group = group), fill = "lightgrey") +
   geom_point(data = china_soil_respiration, aes(x = Longitude+rnorm(n=nrow(china_soil_respiration)), y = Latitude+rnorm(n=nrow(china_soil_respiration)), color=Rs_annual), size = 2) +
   coord_sf(xlim = c(80, 130), ylim = c(10, 55)) +
-  labs(title = "Map of Soil Sample Sites", x = "Longitude", y = "Latitude")
+  labs(title = "Map of Soil Sample Sites in China", x = "Longitude", y = "Latitude")
 ```
 
 Now lets export this and move on to the next section: Data Cleaning and Feature Selection
@@ -150,6 +178,8 @@ Now lets export this and move on to the next section: Data Cleaning and Feature 
 # Save the dataframe as a CSV file
 write.csv(china_soil_respiration, file = "china_soil_respiration.csv", row.names = FALSE)
 ```
+
+
 
 
 

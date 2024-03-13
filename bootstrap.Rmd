@@ -86,7 +86,29 @@ ggplot(plot_data, aes(x = mean_statistic)) +
   labs(x = "Bootstrap Statistics", y = "Frequency") +
   ggtitle("Histogram of Bootstrap Statistics with 95% Confidence Interval")
 ```
+lets just make sure we get two different sets of results if we run our simulation agian:
+```{r}
+#get one set bootstrap statistics
+boot_results <- one_bootstrap()$t
 
+# find the mean and CI 
+boot_mean <- mean(boot_results)
+#we are looking at the middle 95%
+boot_ci <- quantile(boot_results, c(0.025, 0.975))
 
+# for plotting the data, we can all of the sub iterations into a DataFrame
+plot_data <- data.frame(mean_statistic = boot_results)
+
+# Plot using ggplot2
+ggplot(plot_data, aes(x = mean_statistic)) +
+  geom_histogram(binwidth = 10, fill = "skyblue", color = "black") +
+  #Plotting the CI
+  geom_vline(xintercept = boot_ci[1], color = "red", linetype = "dashed") +
+  geom_vline(xintercept = boot_ci[2], color = "red", linetype = "dashed") +
+  #plotting the mean
+  geom_vline(xintercept = boot_mean, color = "darkgreen", linetype = "dashed") +
+  labs(x = "Bootstrap Statistics", y = "Frequency") +
+  ggtitle("Histogram of Bootstrap Statistics with 95% Confidence Interval")
+```
 
 

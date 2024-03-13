@@ -9,7 +9,7 @@ navbar:
       href: intro.html
     - text: "Choosing a Subset"
       href: subsetting.html
-    - text: "Data Cleaning and Feature Selection"
+    - text: "Exploratory Data Analysis and General Cleaning"
       href: cleaning.html
     - text: "Bootstrapping: Minimum/Maximum Differences"
       href: bootstrap.html

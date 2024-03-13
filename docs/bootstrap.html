@@ -467,7 +467,31 @@ bootstraped simmulation:</p>
 <span id="cb12-19"><a href="#cb12-19" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> boot_mean, <span class="at">color =</span> <span class="st">&quot;darkgreen&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
 <span id="cb12-20"><a href="#cb12-20" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Bootstrap Statistics&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frequency&quot;</span>) <span class="sc">+</span></span>
 <span id="cb12-21"><a href="#cb12-21" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Histogram of Bootstrap Statistics with 95% Confidence Interval&quot;</span>)</span></code></pre></div>
-<p><img src="bootstrap_files/figure-html/unnamed-chunk-5-1.png" width="2100" /></p>
+<p><img src="bootstrap_files/figure-html/unnamed-chunk-5-1.png" width="2100" />
+lets just make sure we get two different sets of results if we run our
+simulation agian:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="co">#get one set bootstrap statistics</span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>boot_results <span class="ot">&lt;-</span> <span class="fu">one_bootstrap</span>()<span class="sc">$</span>t</span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a><span class="co"># find the mean and CI </span></span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>boot_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(boot_results)</span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a><span class="co">#we are looking at the middle 95%</span></span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a>boot_ci <span class="ot">&lt;-</span> <span class="fu">quantile</span>(boot_results, <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a><span class="co"># for plotting the data, we can all of the sub iterations into a DataFrame</span></span>
+<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a>plot_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">mean_statistic =</span> boot_results)</span>
+<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a><span class="co"># Plot using ggplot2</span></span>
+<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a><span class="fu">ggplot</span>(plot_data, <span class="fu">aes</span>(<span class="at">x =</span> mean_statistic)) <span class="sc">+</span></span>
+<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">10</span>, <span class="at">fill =</span> <span class="st">&quot;skyblue&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a>  <span class="co">#Plotting the CI</span></span>
+<span id="cb13-16"><a href="#cb13-16" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> boot_ci[<span class="dv">1</span>], <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
+<span id="cb13-17"><a href="#cb13-17" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> boot_ci[<span class="dv">2</span>], <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
+<span id="cb13-18"><a href="#cb13-18" tabindex="-1"></a>  <span class="co">#plotting the mean</span></span>
+<span id="cb13-19"><a href="#cb13-19" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> boot_mean, <span class="at">color =</span> <span class="st">&quot;darkgreen&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
+<span id="cb13-20"><a href="#cb13-20" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Bootstrap Statistics&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frequency&quot;</span>) <span class="sc">+</span></span>
+<span id="cb13-21"><a href="#cb13-21" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Histogram of Bootstrap Statistics with 95% Confidence Interval&quot;</span>)</span></code></pre></div>
+<p><img src="bootstrap_files/figure-html/unnamed-chunk-6-1.png" width="2100" /></p>
 </div>
 
 
