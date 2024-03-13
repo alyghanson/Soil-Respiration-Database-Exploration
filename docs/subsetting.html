@@ -372,45 +372,17 @@ $(document).ready(function () {
 <span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;plyr&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ## The downloaded binary packages are in
-##  /var/folders/q0/_0myr3tj3l986yfxrwn5xvbm0000gn/T//RtmpRiBpsf/downloaded_packages</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;maps&quot;</span>)</span></code></pre></div>
-<pre><code>## 
-## Attaching package: &#39;maps&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:plyr&#39;:
-## 
-##     ozone</code></pre>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;mapdata&quot;</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;ggplot2&quot;</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;readr&quot;</span>)</span>
-<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="fu">library</span>(plyr)</span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>soil_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file=</span><span class="st">&#39;./SRDB_V5_1827/data/srdb-data-V5.csv&#39;</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="fu">names</span>(soil_data)</span></code></pre></div>
-<pre><code>##  [1] &quot;Record_number&quot;      &quot;Entry_date&quot;         &quot;Study_number&quot;       &quot;Author&quot;            
-##  [5] &quot;Duplicate_record&quot;   &quot;Quality_flag&quot;       &quot;Contributor&quot;        &quot;Country&quot;           
-##  [9] &quot;Region&quot;             &quot;Site_name&quot;          &quot;Site_ID&quot;            &quot;Study_midyear&quot;     
-## [13] &quot;YearsOfData&quot;        &quot;Latitude&quot;           &quot;Longitude&quot;          &quot;Elevation&quot;         
-## [17] &quot;Manipulation&quot;       &quot;Manipulation_level&quot; &quot;Age_ecosystem&quot;      &quot;Age_disturbance&quot;   
-## [21] &quot;Species&quot;            &quot;Biome&quot;              &quot;Ecosystem_type&quot;     &quot;Ecosystem_state&quot;   
-## [25] &quot;Leaf_habit&quot;         &quot;Stage&quot;              &quot;Soil_type&quot;          &quot;Soil_drainage&quot;     
-## [29] &quot;Soil_BD&quot;            &quot;Soil_CN&quot;            &quot;Soil_sand&quot;          &quot;Soil_silt&quot;         
-## [33] &quot;Soil_clay&quot;          &quot;MAT&quot;                &quot;MAP&quot;                &quot;PET&quot;               
-## [37] &quot;Study_temp&quot;         &quot;Study_precip&quot;       &quot;Meas_method&quot;        &quot;Collar_height&quot;     
-## [41] &quot;Collar_depth&quot;       &quot;Chamber_area&quot;       &quot;Time_of_day&quot;        &quot;Meas_interval&quot;     
-## [45] &quot;Annual_coverage&quot;    &quot;Partition_method&quot;   &quot;Rs_annual&quot;          &quot;Rs_annual_err&quot;     
-## [49] &quot;Rs_interann_err&quot;    &quot;Rlitter_annual&quot;     &quot;Ra_annual&quot;          &quot;Rh_annual&quot;         
-## [53] &quot;RC_annual&quot;          &quot;Rs_spring&quot;          &quot;Rs_summer&quot;          &quot;Rs_autumn&quot;         
-## [57] &quot;Rs_winter&quot;          &quot;Rs_growingseason&quot;   &quot;Rs_wet&quot;             &quot;Rs_dry&quot;            
-## [61] &quot;RC_seasonal&quot;        &quot;RC_season&quot;          &quot;GPP&quot;                &quot;ER&quot;                
-## [65] &quot;NEP&quot;                &quot;NPP&quot;                &quot;ANPP&quot;               &quot;BNPP&quot;              
-## [69] &quot;NPP_FR&quot;             &quot;TBCA&quot;               &quot;Litter_flux&quot;        &quot;Rootlitter_flux&quot;   
-## [73] &quot;TotDet_flux&quot;        &quot;Ndep&quot;               &quot;LAI&quot;                &quot;BA&quot;                
-## [77] &quot;C_veg_total&quot;        &quot;C_AG&quot;               &quot;C_BG&quot;               &quot;C_CR&quot;              
-## [81] &quot;C_FR&quot;               &quot;C_litter&quot;           &quot;C_soilmineral&quot;      &quot;C_soildepth&quot;       
-## [85] &quot;Notes&quot;</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">attach</span>(soil_data)</span></code></pre></div>
+##  /var/folders/q0/_0myr3tj3l986yfxrwn5xvbm0000gn/T//RtmpfQoWum/downloaded_packages</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;sf&quot;</span>)</span></code></pre></div>
+<pre><code>## Linking to GEOS 3.11.0, GDAL 3.5.3, PROJ 9.1.0; sf_use_s2() is TRUE</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;maps&quot;</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;mapdata&quot;</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;ggplot2&quot;</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;readr&quot;</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="fu">library</span>(plyr)</span></code></pre></div>
 <p>Lets take a look at where the sample are from:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>background_map <span class="ot">&lt;-</span> <span class="fu">map_data</span>(<span class="st">&quot;worldHires&quot;</span>)</span>
-<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>soil_samps <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;SRDB_V5_1827/data/srdb-data-V5.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>background_map <span class="ot">&lt;-</span> <span class="fu">map_data</span>(<span class="st">&quot;worldHires&quot;</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>soil_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;SRDB_V5_1827/data/srdb-data-V5.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## Warning: One or more parsing issues, call `problems()` on your data frame for details, e.g.:
 ##   dat &lt;- vroom(...)
 ##   problems(dat)</code></pre>
@@ -422,42 +394,45 @@ $(document).ready(function () {
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="co">#adding our map:</span></span>
-<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(<span class="at">data =</span> background_map, <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">group =</span> group), <span class="at">fill =</span> <span class="st">&quot;lightgrey&quot;</span>) <span class="sc">+</span></span>
-<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> soil_samps, <span class="fu">aes</span>(<span class="at">x =</span> Longitude, <span class="at">y =</span> Latitude), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>  <span class="fu">coord_fixed</span>() <span class="sc">+</span></span>
-<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Map of Soil Sample Sites&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Longitude&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Latitude&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co">#adding our map:</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>RS_mean <span class="ot">=</span> <span class="fu">mean</span>(soil_data<span class="sc">$</span>Rs_annual)</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(<span class="at">data =</span> background_map, <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">group =</span> group), <span class="at">fill =</span> <span class="st">&quot;lightgrey&quot;</span>) <span class="sc">+</span></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> soil_data, <span class="fu">aes</span>(<span class="at">x =</span> Longitude<span class="sc">+</span><span class="fu">rnorm</span>(<span class="at">n=</span><span class="fu">nrow</span>(soil_data)), <span class="at">y =</span> Latitude<span class="sc">+</span><span class="fu">rnorm</span>(<span class="fu">nrow</span>(soil_data)), <span class="at">color=</span>Biome), <span class="at">size =</span> <span class="fl">0.5</span>, <span class="at">alpha=</span>.<span class="dv">25</span>, <span class="at">shape=</span><span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>  <span class="fu">coord_fixed</span>() <span class="sc">+</span></span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Map of Soil Sample Sites&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Longitude&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Latitude&quot;</span>) </span></code></pre></div>
 <pre><code>## Warning: Removed 383 rows containing missing values or values outside the scale range (`geom_point()`).</code></pre>
-<p><img src="subsetting_files/figure-html/unnamed-chunk-4-1.png" width="2100" /></p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="co">#getting the frequency of different countries:</span></span>
-<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>country_counts <span class="ot">&lt;-</span> <span class="fu">count</span>(soil_data, <span class="st">&#39;Country&#39;</span>)</span>
-<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a><span class="fu">head</span>(country_counts)</span></code></pre></div>
+<p><img src="subsetting_files/figure-html/unnamed-chunk-3-1.png" width="2100" /></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="co">#scale_color_gradient( low = &quot;brown&quot;, high = &quot;green&quot;, space = &quot;Lab&quot; )</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="co">#getting the frequency of different countries:</span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>country_counts <span class="ot">&lt;-</span> <span class="fu">count</span>(soil_data, <span class="st">&#39;Country&#39;</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a><span class="fu">head</span>(country_counts)</span></code></pre></div>
 <pre><code>##      Country freq
-## 1              11
-## 2     Africa    1
-## 3    Algeria    2
-## 4  Antarctic    2
-## 5 Antarctica    7
-## 6     Arctic    1</code></pre>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="co">#lets sort them to see the most frequent countries:</span></span>
-<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="fu">attach</span>(country_counts)</span>
-<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a>country_counts_sorted <span class="ot">&lt;-</span> country_counts[<span class="fu">order</span>(<span class="sc">-</span>freq),]</span>
-<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a><span class="fu">head</span>(country_counts_sorted)</span></code></pre></div>
+## 1     Africa    1
+## 2    Algeria    2
+## 3  Antarctic    2
+## 4 Antarctica    7
+## 5     Arctic    1
+## 6  Argentina   20</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="co">#lets sort them to see the most frequent countries:</span></span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a><span class="fu">attach</span>(country_counts)</span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>country_counts_sorted <span class="ot">&lt;-</span> country_counts[<span class="fu">order</span>(<span class="sc">-</span>freq),]</span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a><span class="fu">head</span>(country_counts_sorted)</span></code></pre></div>
 <pre><code>##     Country freq
-## 23    China 3038
-## 111     USA 2666
-## 20   Canada  556
-## 57    Japan  299
-## 39  Finland  277
-## 84   Russia  226</code></pre>
+## 22    China 3038
+## 108     USA 2666
+## 19   Canada  556
+## 55    Japan  299
+## 38  Finland  277
+## 82   Russia  231</code></pre>
 <p>We can visualize this with a barplot:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="co">#create barplot:</span></span>
-<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>top_5 <span class="ot">&lt;-</span> country_counts_sorted[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,]</span>
-<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a>y_top_5 <span class="ot">&lt;-</span> top_5[[<span class="st">&#39;freq&#39;</span>]]</span>
-<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a>x_top_5 <span class="ot">&lt;-</span> top_5[[<span class="st">&#39;Country&#39;</span>]]</span>
-<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a><span class="fu">barplot</span>(y_top_5, <span class="at">names.arg=</span>x_top_5, <span class="at">horiz=</span><span class="cn">TRUE</span>, <span class="at">xlab =</span> <span class="st">&#39;Frequency&#39;</span>, <span class="at">main =</span> <span class="st">&#39;Top 5 Countries Represented&#39;</span>, <span class="at">las =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&#39;darkgreen&#39;</span>)</span></code></pre></div>
-<p><img src="subsetting_files/figure-html/unnamed-chunk-7-1.png" width="2100" />
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="co">#create barplot:</span></span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>top_5 <span class="ot">&lt;-</span> country_counts_sorted[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,]</span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a>y_top_5 <span class="ot">&lt;-</span> top_5[[<span class="st">&#39;freq&#39;</span>]]</span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a>x_top_5 <span class="ot">&lt;-</span> top_5[[<span class="st">&#39;Country&#39;</span>]]</span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a><span class="fu">barplot</span>(y_top_5, <span class="at">names.arg=</span>x_top_5, <span class="at">horiz=</span><span class="cn">TRUE</span>, <span class="at">xlab =</span> <span class="st">&#39;Frequency&#39;</span>, <span class="at">main =</span> <span class="st">&#39;Top 5 Countries Represented&#39;</span>, <span class="at">las =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&#39;darkgreen&#39;</span>)</span></code></pre></div>
+<p><img src="subsetting_files/figure-html/unnamed-chunk-6-1.png" width="2100" />
 We see here that China and the USA make up a very large part of this
 data set. I want to see which of the two has the lowest percentage of
 missing values, then I will choose that subset of the data to work
@@ -465,21 +440,21 @@ on:</p>
 <div id="subsetting-china-and-usa" class="section level2">
 <h2>Subsetting China and USA:</h2>
 <p>First we will only grab Countries China and USA:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a>subset_list <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;China&quot;</span>, <span class="st">&quot;USA&quot;</span>)</span>
-<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>china_usa <span class="ot">=</span> soil_data[soil_data<span class="sc">$</span>Country <span class="sc">%in%</span> subset_list, ]</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>subset_list <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;China&quot;</span>, <span class="st">&quot;USA&quot;</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a>china_usa <span class="ot">=</span> soil_data[soil_data<span class="sc">$</span>Country <span class="sc">%in%</span> subset_list, ]</span></code></pre></div>
 <p>And we can now see which has a lower percentage of missing values, we
 will also look at the distribution of quality flags for each group,
 because this will give us a better idea about the nature of information
 contained there:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a>china <span class="ot">&lt;-</span> china_usa[china_usa<span class="sc">$</span>Country <span class="sc">==</span> <span class="st">&quot;China&quot;</span>,]</span>
-<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a>percent_missing_china <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">is.na</span>(china)) <span class="sc">*</span> <span class="dv">100</span></span>
-<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a>percent_missing_china</span></code></pre></div>
-<pre><code>## [1] 52.85366</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>china <span class="ot">&lt;-</span> china_usa[china_usa<span class="sc">$</span>Country <span class="sc">==</span> <span class="st">&quot;China&quot;</span>,]</span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>percent_missing_china <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">is.na</span>(china)) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a>percent_missing_china</span></code></pre></div>
+<pre><code>## [1] 60.31677</code></pre>
 <p>Lets now look at the percent missing from USA:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a>usa <span class="ot">&lt;-</span> china_usa[china_usa<span class="sc">$</span>Country <span class="sc">==</span> <span class="st">&quot;USA&quot;</span>,]</span>
-<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a>percent_mising_usa <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">is.na</span>(usa)) <span class="sc">*</span> <span class="dv">100</span></span>
-<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a>percent_mising_usa</span></code></pre></div>
-<pre><code>## [1] 53.62561</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a>usa <span class="ot">&lt;-</span> china_usa[china_usa<span class="sc">$</span>Country <span class="sc">==</span> <span class="st">&quot;USA&quot;</span>,]</span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>percent_mising_usa <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">is.na</span>(usa)) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a>percent_mising_usa</span></code></pre></div>
+<pre><code>## [1] 60.91479</code></pre>
 <p>Great we can see that china has a lower percentage of missing
 data.</p>
 <p>#Inspection of Quality Flags: For reference we can describe each
@@ -496,38 +471,38 @@ Q13 duplicate<br />
 Q14 inconsistency<br />
 </p>
 <p>Lets take a look at the distribution of flags for each group:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a>usa_qf_counts <span class="ot">&lt;-</span> <span class="fu">count</span>(usa, <span class="st">&quot;Quality_flag&quot;</span>)</span>
-<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a>china_qf_counts <span class="ot">&lt;-</span> <span class="fu">count</span>(china, <span class="st">&quot;Quality_flag&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a>usa_qf_counts</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a>usa_qf_counts <span class="ot">&lt;-</span> <span class="fu">count</span>(usa, <span class="st">&quot;Quality_flag&quot;</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a>china_qf_counts <span class="ot">&lt;-</span> <span class="fu">count</span>(china, <span class="st">&quot;Quality_flag&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a>usa_qf_counts</span></code></pre></div>
 <pre><code>##    Quality_flag freq
-## 1               1924
-## 2           Q01  529
-## 3       Q01,Q10    3
-## 4           Q02   21
-## 5           Q03   24
-## 6       Q03,Q10    1
-## 7            Q1    5
-## 8           Q10   38
-## 9       Q10,Q13    7
-## 10          Q11    8
-## 11          Q13   90
-## 12          Q16   16</code></pre>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a>china_qf_counts</span></code></pre></div>
+## 1           Q01  529
+## 2       Q01,Q10    3
+## 3           Q02   21
+## 4           Q03   24
+## 5       Q03,Q10    1
+## 6            Q1    5
+## 7           Q10   38
+## 8       Q10,Q13    7
+## 9           Q11    8
+## 10          Q13   90
+## 11          Q16   16
+## 12         &lt;NA&gt; 1924</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a>china_qf_counts</span></code></pre></div>
 <pre><code>##    Quality_flag freq
-## 1               2324
-## 2           Q01  529
-## 3      Q01, Q11   15
-## 4           Q02    7
-## 5           Q03   37
-## 6            Q1   90
-## 7           Q10   10
-## 8           Q11    1
-## 9       Q11,Q12    4
-## 10      Q11,Q14    3
-## 11          Q12    1
-## 12          Q13    3
-## 13          Q15    2
-## 14          Q16   12</code></pre>
+## 1           Q01  529
+## 2      Q01, Q11   15
+## 3           Q02    7
+## 4           Q03   37
+## 5            Q1   90
+## 6           Q10   10
+## 7           Q11    1
+## 8       Q11,Q12    4
+## 9       Q11,Q14    3
+## 10          Q12    1
+## 11          Q13    3
+## 12          Q15    2
+## 13          Q16   12
+## 14         &lt;NA&gt; 2324</code></pre>
 <p>Alright we can pretty easily see that China has more data, and lest
 potental problems with the quality of each observation.</p>
 <div id="moving-forward-with-the-china-subset" class="section level3">
@@ -539,83 +514,39 @@ selecting our features of interest.</p>
 misleading or problematic to keep observations with the other QF’s, we
 will then save as a data set and move on the the cleaning and feature
 selection section!</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a>ok_flags <span class="ot">=</span> <span class="fu">c</span>(<span class="cn">NULL</span>, <span class="st">&quot;Q01&quot;</span>, <span class="st">&quot;Q1&quot;</span>, <span class="st">&quot;Q02&quot;</span>, <span class="st">&quot;Q03&quot;</span>)</span>
-<span id="cb30-2"><a href="#cb30-2" tabindex="-1"></a>china_soil_respiration <span class="ot">&lt;-</span> soil_data[(soil_data<span class="sc">$</span>Country <span class="sc">==</span> <span class="st">&quot;China&quot;</span>) <span class="sc">&amp;</span> (soil_data<span class="sc">$</span>Quality_flag <span class="sc">%in%</span> ok_flags), ]</span>
-<span id="cb30-3"><a href="#cb30-3" tabindex="-1"></a><span class="fu">head</span>(china_soil_respiration)</span></code></pre></div>
-<pre><code>##     Record_number Entry_date Study_number Author Duplicate_record Quality_flag Contributor Country
-## 267           276 2008-10-24         3653   Wang                           Q02         BBL   China
-## 268           277 2008-10-24         3653   Wang                           Q02         BBL   China
-## 269           278 2008-10-24         3653   Wang                           Q02         BBL   China
-## 270           279 2008-10-24         3653   Wang                           Q02         BBL   China
-## 271           280 2008-10-25         3653   Wang                           Q02         BBL   China
-## 272           281 2008-10-25         3653   Wang                           Q02         BBL   China
-##     Region              Site_name      Site_ID Study_midyear YearsOfData Latitude Longitude Elevation
-## 267             Maoershan ERS-Oak   CN-MAE-OAK        2004.5         1.5    45.37    127.53       300
-## 268           Maoershan ERS-Aspen CN-MAE-ASPEN        2004.5         1.5    45.37    127.53       300
-## 269        Maoershan ERS-DecidMix    CN-MAE-MF        2004.5         1.5    45.37    127.53       300
-## 270        Maoershan ERS-Hardwood    CN-MAE-HW        2004.5         1.5    45.37    127.53       300
-## 271            Maoershan ERS-Pine  CN-MAE-PINE        2004.5         1.5    45.37    127.53       300
-## 272           Maoershan ERS-Larch CN-MAE-LARCH        2004.5         1.5    45.37    127.53       300
-##     Manipulation Manipulation_level Age_ecosystem Age_disturbance              Species     Biome
-## 267         None                               NA              56    Quercus mongolica Temperate
-## 268         None                               NA              55    Populus davidiana Temperate
-## 269         None                               NA              55                  Mix Temperate
-## 270         None                               NA              50 Fraxinus mandshurica Temperate
-## 271         None                               NA              39     Pinus koraiensis Temperate
-## 272         None                               NA              47       Larix gmelinii Temperate
-##     Ecosystem_type Ecosystem_state Leaf_habit  Stage                    Soil_type Soil_drainage Soil_BD
-## 267         Forest         Natural  Deciduous Mature Haplumbrepts or Eutroboralfs           Dry      NA
-## 268         Forest         Natural  Deciduous Mature Haplumbrepts or Eutroboralfs           Dry      NA
-## 269         Forest         Natural  Deciduous Mature Haplumbrepts or Eutroboralfs           Dry      NA
-## 270         Forest         Natural  Deciduous Mature Haplumbrepts or Eutroboralfs           Dry      NA
-## 271         Forest         Natural  Evergreen Mature Haplumbrepts or Eutroboralfs           Dry      NA
-## 272         Forest         Natural  Deciduous Mature Haplumbrepts or Eutroboralfs           Dry      NA
-##     Soil_CN Soil_sand Soil_silt Soil_clay MAT MAP PET Study_temp Study_precip Meas_method Collar_height
-## 267      NA        NA        NA        NA 2.8 700  NA         NA           NA        IRGA            NA
-## 268      NA        NA        NA        NA 2.8 700  NA         NA           NA        IRGA            NA
-## 269      NA        NA        NA        NA 2.8 700  NA         NA           NA        IRGA            NA
-## 270      NA        NA        NA        NA 2.8 700  NA         NA           NA        IRGA            NA
-## 271      NA        NA        NA        NA 2.8 700  NA         NA           NA        IRGA            NA
-## 272      NA        NA        NA        NA 2.8 700  NA         NA           NA        IRGA            NA
-##     Collar_depth Chamber_area Time_of_day Meas_interval Annual_coverage Partition_method Rs_annual
-## 267            5           NA                        14             0.5        Exclusion       785
-## 268            5           NA                        14             0.5        Exclusion       813
-## 269            5           NA                        14             0.5        Exclusion       786
-## 270            5           NA                        14             0.5        Exclusion       781
-## 271            5           NA                        14             0.5        Exclusion       514
-## 272            5           NA                        14             0.5        Exclusion       403
-##     Rs_annual_err Rs_interann_err Rlitter_annual Ra_annual Rh_annual RC_annual Rs_spring Rs_summer
-## 267            16              NA             NA       524       261      0.67        NA        NA
-## 268            26              NA             NA       626       187      0.77        NA        NA
-## 269            30              NA             NA       485       301      0.62        NA        NA
-## 270            16              NA             NA       536       245      0.69        NA        NA
-## 271            26              NA             NA       425        89      0.83        NA        NA
-## 272            14              NA             NA       207       196      0.51        NA        NA
-##     Rs_autumn Rs_winter Rs_growingseason Rs_wet Rs_dry RC_seasonal RC_season GPP ER NEP NPP ANPP BNPP
-## 267        NA        NA               NA     NA     NA          NA            NA NA  NA  NA   NA   NA
-## 268        NA        NA               NA     NA     NA          NA            NA NA  NA  NA   NA   NA
-## 269        NA        NA               NA     NA     NA          NA            NA NA  NA  NA   NA   NA
-## 270        NA        NA               NA     NA     NA          NA            NA NA  NA  NA   NA   NA
-## 271        NA        NA               NA     NA     NA          NA            NA NA  NA  NA   NA   NA
-## 272        NA        NA               NA     NA     NA          NA            NA NA  NA  NA   NA   NA
-##     NPP_FR TBCA Litter_flux Rootlitter_flux TotDet_flux Ndep LAI   BA C_veg_total C_AG C_BG C_CR C_FR
-## 267     NA   NA          NA              NA          NA   NA  NA 38.2          NA   NA   NA   NA   NA
-## 268     NA   NA          NA              NA          NA   NA  NA 27.6          NA   NA   NA   NA   NA
-## 269     NA   NA          NA              NA          NA   NA  NA 34.9          NA   NA   NA   NA   NA
-## 270     NA   NA          NA              NA          NA   NA  NA 26.6          NA   NA   NA   NA   NA
-## 271     NA   NA          NA              NA          NA   NA  NA 35.7          NA   NA   NA   NA   NA
-## 272     NA   NA          NA              NA          NA   NA  NA 29.0          NA   NA   NA   NA   NA
-##     C_litter C_soilmineral C_soildepth              Notes
-## 267       NA            NA          NA RC data from #4133
-## 268       NA            NA          NA RC data from #4133
-## 269       NA            NA          NA RC data from #4133
-## 270       NA            NA          NA RC data from #4133
-## 271       NA            NA          NA RC data from #4133
-## 272       NA            NA          NA RC data from #4133</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a>ok_flags <span class="ot">=</span> <span class="fu">c</span>(<span class="cn">NULL</span>, <span class="st">&quot;Q01&quot;</span>, <span class="st">&quot;Q1&quot;</span>, <span class="st">&quot;Q02&quot;</span>, <span class="st">&quot;Q03&quot;</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a>china_soil_respiration <span class="ot">&lt;-</span> soil_data[(soil_data<span class="sc">$</span>Country <span class="sc">==</span> <span class="st">&quot;China&quot;</span>) <span class="sc">&amp;</span> (soil_data<span class="sc">$</span>Quality_flag <span class="sc">%in%</span> ok_flags), ]</span>
+<span id="cb27-3"><a href="#cb27-3" tabindex="-1"></a><span class="fu">head</span>(china_soil_respiration)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 85
+##   Record_number Entry_date Study_number Author Duplicate_record Quality_flag Contributor Country Region
+##           &lt;dbl&gt; &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;   &lt;chr&gt; 
+## 1           276 2008-10-24         3653 Wang                 NA Q02          BBL         China   &lt;NA&gt;  
+## 2           277 2008-10-24         3653 Wang                 NA Q02          BBL         China   &lt;NA&gt;  
+## 3           278 2008-10-24         3653 Wang                 NA Q02          BBL         China   &lt;NA&gt;  
+## 4           279 2008-10-24         3653 Wang                 NA Q02          BBL         China   &lt;NA&gt;  
+## 5           280 2008-10-25         3653 Wang                 NA Q02          BBL         China   &lt;NA&gt;  
+## 6           281 2008-10-25         3653 Wang                 NA Q02          BBL         China   &lt;NA&gt;  
+## # ℹ 76 more variables: Site_name &lt;chr&gt;, Site_ID &lt;chr&gt;, Study_midyear &lt;dbl&gt;, YearsOfData &lt;dbl&gt;,
+## #   Latitude &lt;dbl&gt;, Longitude &lt;dbl&gt;, Elevation &lt;dbl&gt;, Manipulation &lt;chr&gt;, Manipulation_level &lt;chr&gt;,
+## #   Age_ecosystem &lt;dbl&gt;, Age_disturbance &lt;dbl&gt;, Species &lt;chr&gt;, Biome &lt;chr&gt;, Ecosystem_type &lt;chr&gt;,
+## #   Ecosystem_state &lt;chr&gt;, Leaf_habit &lt;chr&gt;, Stage &lt;chr&gt;, Soil_type &lt;chr&gt;, Soil_drainage &lt;chr&gt;,
+## #   Soil_BD &lt;dbl&gt;, Soil_CN &lt;dbl&gt;, Soil_sand &lt;dbl&gt;, Soil_silt &lt;dbl&gt;, Soil_clay &lt;dbl&gt;, MAT &lt;dbl&gt;,
+## #   MAP &lt;dbl&gt;, PET &lt;dbl&gt;, Study_temp &lt;dbl&gt;, Study_precip &lt;dbl&gt;, Meas_method &lt;chr&gt;, Collar_height &lt;dbl&gt;,
+## #   Collar_depth &lt;dbl&gt;, Chamber_area &lt;dbl&gt;, Time_of_day &lt;chr&gt;, Meas_interval &lt;dbl&gt;, …</code></pre>
+<p>#Map of New Dataset:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="co">#adding our map:</span></span>
+<span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a><span class="co">#Note the added random noise to see points clustered together at simmilar or the same tesing sites</span></span>
+<span id="cb29-3"><a href="#cb29-3" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb29-4"><a href="#cb29-4" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(<span class="at">data =</span> background_map, <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">group =</span> group), <span class="at">fill =</span> <span class="st">&quot;lightgrey&quot;</span>) <span class="sc">+</span></span>
+<span id="cb29-5"><a href="#cb29-5" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> china_soil_respiration, <span class="fu">aes</span>(<span class="at">x =</span> Longitude<span class="sc">+</span><span class="fu">rnorm</span>(<span class="at">n=</span><span class="fu">nrow</span>(china_soil_respiration)), <span class="at">y =</span> Latitude<span class="sc">+</span><span class="fu">rnorm</span>(<span class="at">n=</span><span class="fu">nrow</span>(china_soil_respiration)), <span class="at">color=</span>Rs_annual), <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb29-6"><a href="#cb29-6" tabindex="-1"></a>  <span class="fu">coord_sf</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">130</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">55</span>)) <span class="sc">+</span></span>
+<span id="cb29-7"><a href="#cb29-7" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Map of Soil Sample Sites&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Longitude&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Latitude&quot;</span>)</span></code></pre></div>
+<pre><code>## Warning: Removed 24 rows containing missing values or values outside the scale range (`geom_point()`).</code></pre>
+<p><img src="subsetting_files/figure-html/unnamed-chunk-14-1.png" width="2100" /></p>
 <p>Now lets export this and move on to the next section: Data Cleaning
 and Feature Selection</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a><span class="co"># Save the dataframe as a CSV file</span></span>
-<span id="cb32-2"><a href="#cb32-2" tabindex="-1"></a><span class="fu">write.csv</span>(china_soil_respiration, <span class="at">file =</span> <span class="st">&quot;china_soil_respiration.csv&quot;</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="co"># Save the dataframe as a CSV file</span></span>
+<span id="cb31-2"><a href="#cb31-2" tabindex="-1"></a><span class="fu">write.csv</span>(china_soil_respiration, <span class="at">file =</span> <span class="st">&quot;china_soil_respiration.csv&quot;</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 </div>
 </div>
 

@@ -11,6 +11,8 @@ navbar:
       href: subsetting.html
     - text: "Data Cleaning and Feature Selection"
       href: cleaning.html
+    - text: "Bootstrapping: Minimum/Maximum Differences"
+      href: bootstrap.html
   right:
   - text: "About Project"
     href: about.html

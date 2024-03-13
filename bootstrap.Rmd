@@ -1,0 +1,48 @@
+
+---
+title: "Bootstraping the Minimum and Maximum Annual Soil Respiration Differences"
+output: 
+  html_document:
+    fig_caption: no
+    number_sections: no
+    toc: no
+    toc_float: false
+    collapsed: no.
+---
+
+```{r set-options, echo=FALSE}
+options(width = 105)
+knitr::opts_chunk$set(dev='png', dpi=300, cache=TRUE)
+pdf.options(useDingbats = TRUE)
+```
+#Estimating the average difference between the minimum and maximum Soil Respiration levels from 1999 t0 2015 in Eastern China
+
+### Edit this to refelect what we are actually doing
+A great tool at our disposal here is bootstaping. We have a small number of samples, and to begin with there is an element of estimation in this statsic because it would be nearly impossible and extremely expensive to measure the respiration Levels in soil across all of Eastern China over the course of many years, what we do have is a somewhat sparce data set. 
+
+The question we are askinf isnt if there was a chang at all, but how confident are we that one has or has not occured given the information we have and the information we lack. Throught this project the bigest challenge was dealing with very spread out limited data, however, we have cleaned up our table and we can now run a bootstrap simulation to quantify the confidence interval of the change of the difference between min and max values we (will call the difference now mm_difference and the change of differences total_change from here on out). 
+
+The process of bootstraping is fairly simmple, we will be sampling our cleaned dataset, with replacement, to calculate the total_change between the mm_difference for 1995 and 2015. we will then do this many times to create a normal distribution. this will give us a confidence interval of that change. 
+
+We will do this process multile times and thus create a confedience interval of those as well for an added layer of certainty.
+```{r}
+library("sf")
+library("ggplot2")
+library("readr")
+library("tidyverse")
+```
+
+
+```{r}
+#import cleaned dataset:
+RS_full <- read_csv("china_clean.csv")
+RS <- RS_full[, c('Study_midyear', 'Rs_annual')]
+RS
+```
+
+
+# visualizing the full set:
+```{r}
+
+```
+

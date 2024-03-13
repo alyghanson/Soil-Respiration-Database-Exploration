@@ -23,31 +23,29 @@ options(repos = "https://cloud.r-project.org")
 # Now try installing the package
 install.packages("plyr")
 
+library("sf")
 library("maps")
 library("mapdata")
 library("ggplot2")
 library("readr")
 library(plyr)
 ```
-
-```{r}
-soil_data <- read.csv(file='./SRDB_V5_1827/data/srdb-data-V5.csv')
-names(soil_data)
-attach(soil_data)
-```
 Lets take a look at where the sample are from:
 ```{r}
 background_map <- map_data("worldHires")
-soil_samps <- read_csv("SRDB_V5_1827/data/srdb-data-V5.csv")
+soil_data <- read_csv("SRDB_V5_1827/data/srdb-data-V5.csv")
 
 ```
 ```{r}
 #adding our map:
+RS_mean = mean(soil_data$Rs_annual)
+
 ggplot() +
   geom_polygon(data = background_map, aes(x = long, y = lat, group = group), fill = "lightgrey") +
-  geom_point(data = soil_samps, aes(x = Longitude, y = Latitude), color = "red", size = 0.5) +
+  geom_point(data = soil_data, aes(x = Longitude+rnorm(n=nrow(soil_data)), y = Latitude+rnorm(nrow(soil_data)), color=Biome), size = 0.5, alpha=.25, shape=4) +
   coord_fixed() +
-  labs(title = "Map of Soil Sample Sites", x = "Longitude", y = "Latitude")
+  labs(title = "Map of Soil Sample Sites", x = "Longitude", y = "Latitude") 
+#scale_color_gradient( low = "brown", high = "green", space = "Lab" )
 ```
 
 
@@ -133,6 +131,20 @@ ok_flags = c(NULL, "Q01", "Q1", "Q02", "Q03")
 china_soil_respiration <- soil_data[(soil_data$Country == "China") & (soil_data$Quality_flag %in% ok_flags), ]
 head(china_soil_respiration)
 ```
+
+
+#Map of New Dataset: 
+
+```{r}
+#adding our map:
+#Note the added random noise to see points clustered together at simmilar or the same tesing sites
+ggplot() +
+  geom_polygon(data = background_map, aes(x = long, y = lat, group = group), fill = "lightgrey") +
+  geom_point(data = china_soil_respiration, aes(x = Longitude+rnorm(n=nrow(china_soil_respiration)), y = Latitude+rnorm(n=nrow(china_soil_respiration)), color=Rs_annual), size = 2) +
+  coord_sf(xlim = c(80, 130), ylim = c(10, 55)) +
+  labs(title = "Map of Soil Sample Sites", x = "Longitude", y = "Latitude")
+```
+
 Now lets export this and move on to the next section: Data Cleaning and Feature Selection
 ```{r}
 # Save the dataframe as a CSV file
