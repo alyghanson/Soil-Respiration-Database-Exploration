@@ -419,25 +419,55 @@ interval of those as well for an added layer of certainty.</p>
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>RS <span class="ot">&lt;-</span> RS_full[, <span class="fu">c</span>(<span class="st">&#39;Study_midyear&#39;</span>, <span class="st">&#39;Rs_annual&#39;</span>)]</span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>RS</span></code></pre></div>
-<pre><code>## # A tibble: 259 × 2
-##    Study_midyear Rs_annual
-##            &lt;dbl&gt;     &lt;dbl&gt;
-##  1         2004.       785
-##  2         2004.       813
-##  3         2004.       786
-##  4         2004.       781
-##  5         2004.       514
-##  6         2004.       403
-##  7         2003       1017
-##  8         2000.       581
-##  9         2000.       385
-## 10         2000.       775
-## # ℹ 249 more rows</code></pre>
-</div>
-<div id="visualizing-the-full-set" class="section level1">
-<h1>visualizing the full set:</h1>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="co">#lets just grab the two columns we are interested in:</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>RS <span class="ot">&lt;-</span> RS_full[, <span class="fu">c</span>(<span class="st">&#39;Study_midyear&#39;</span>, <span class="st">&#39;Rs_annual&#39;</span>)]</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="fu">head</span>(RS)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 2
+##   Study_midyear Rs_annual
+##           &lt;dbl&gt;     &lt;dbl&gt;
+## 1         2004.       785
+## 2         2004.       813
+## 3         2004.       786
+## 4         2004.       781
+## 5         2004.       514
+## 6         2004.       403</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="co">#make a function that can compute the mean difference of a dataframe column:</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>rs_mean <span class="ot">&lt;-</span> <span class="cf">function</span> (data, i){</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>  highs_and_lows<span class="ot">&lt;-</span> data[i, ] <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(Study_midyear) <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="at">High =</span> <span class="fu">max</span>(Rs_annual), <span class="at">Min =</span> <span class="fu">min</span>(Rs_annual))</span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>  differences <span class="ot">&lt;-</span> <span class="fu">abs</span>(highs_and_lows<span class="sc">$</span>High <span class="sc">-</span> highs_and_lows<span class="sc">$</span>Min)</span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">mean</span>(differences))}</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="co"># import the bootstap package</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="fu">library</span>(boot)</span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a>one_bootstrap <span class="ot">&lt;-</span> <span class="cf">function</span>(){</span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">boot</span>(<span class="at">data =</span> RS, <span class="at">statistic =</span> rs_mean, <span class="at">R =</span> <span class="dv">1000</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a>  <span class="fu">return</span> (result)}</span></code></pre></div>
+<p>Great, now we have some infestructure to run bootstrap simulations.
+First off let’s investigate one bootstrap iteration and its associated
+confidence interval: # visualizing the confidence interval of this one
+bootstraped simmulation:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="co">#get one set bootstrap statistics</span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>boot_results <span class="ot">&lt;-</span> <span class="fu">one_bootstrap</span>()<span class="sc">$</span>t</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a><span class="co"># find the mean and CI </span></span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>boot_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(boot_results)</span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a><span class="co">#we are looking at the middle 95%</span></span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a>boot_ci <span class="ot">&lt;-</span> <span class="fu">quantile</span>(boot_results, <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span>
+<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a><span class="co"># for plotting the data, we can all of the sub iterations into a DataFrame</span></span>
+<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a>plot_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">mean_statistic =</span> boot_results)</span>
+<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a><span class="co"># Plot using ggplot2</span></span>
+<span id="cb12-13"><a href="#cb12-13" tabindex="-1"></a><span class="fu">ggplot</span>(plot_data, <span class="fu">aes</span>(<span class="at">x =</span> mean_statistic)) <span class="sc">+</span></span>
+<span id="cb12-14"><a href="#cb12-14" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">10</span>, <span class="at">fill =</span> <span class="st">&quot;skyblue&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb12-15"><a href="#cb12-15" tabindex="-1"></a>  <span class="co">#Plotting the CI</span></span>
+<span id="cb12-16"><a href="#cb12-16" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> boot_ci[<span class="dv">1</span>], <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
+<span id="cb12-17"><a href="#cb12-17" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> boot_ci[<span class="dv">2</span>], <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
+<span id="cb12-18"><a href="#cb12-18" tabindex="-1"></a>  <span class="co">#plotting the mean</span></span>
+<span id="cb12-19"><a href="#cb12-19" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> boot_mean, <span class="at">color =</span> <span class="st">&quot;darkgreen&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
+<span id="cb12-20"><a href="#cb12-20" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Bootstrap Statistics&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frequency&quot;</span>) <span class="sc">+</span></span>
+<span id="cb12-21"><a href="#cb12-21" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Histogram of Bootstrap Statistics with 95% Confidence Interval&quot;</span>)</span></code></pre></div>
+<p><img src="bootstrap_files/figure-html/unnamed-chunk-5-1.png" width="2100" /></p>
 </div>
 
 

@@ -104,3 +104,9 @@ mmm
 
 We see here the temporal changes from 1999 to 2015, and we see how the soil respiration really fluctuates from ear to year with and interesting pattern. what is very interesting to me are the gaps between the min and max values for each year. This is what we will investigate int he next section. 
 
+
+```{r}
+#export as new csv for bootstapping:
+write.csv(cleaned_china, file = "china_clean.csv", row.names = FALSE)
+```
+

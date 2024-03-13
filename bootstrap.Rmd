@@ -36,13 +36,57 @@ library("tidyverse")
 ```{r}
 #import cleaned dataset:
 RS_full <- read_csv("china_clean.csv")
+
+#lets just grab the two columns we are interested in:
 RS <- RS_full[, c('Study_midyear', 'Rs_annual')]
-RS
+head(RS)
 ```
 
-
-# visualizing the full set:
 ```{r}
-
+#make a function that can compute the mean difference of a dataframe column:
+rs_mean <- function (data, i){
+  highs_and_lows<- data[i, ] %>% group_by(Study_midyear) %>% summarize(High = max(Rs_annual), Min = min(Rs_annual))
+  differences <- abs(highs_and_lows$High - highs_and_lows$Min)
+  return(mean(differences))}
 ```
+
+
+```{r}
+# import the bootstap package
+library(boot)
+
+one_bootstrap <- function(){
+  result <- boot(data = RS, statistic = rs_mean, R = 1000)
+  return (result)}
+```
+
+Great, now we have some infestructure to run bootstrap simulations. 
+First off let's investigate one bootstrap iteration and its associated confidence interval:
+# visualizing the confidence interval of this one bootstraped simmulation:
+```{r}
+#get one set bootstrap statistics
+boot_results <- one_bootstrap()$t
+
+# find the mean and CI 
+boot_mean <- mean(boot_results)
+#we are looking at the middle 95%
+boot_ci <- quantile(boot_results, c(0.025, 0.975))
+
+# for plotting the data, we can all of the sub iterations into a DataFrame
+plot_data <- data.frame(mean_statistic = boot_results)
+
+# Plot using ggplot2
+ggplot(plot_data, aes(x = mean_statistic)) +
+  geom_histogram(binwidth = 10, fill = "skyblue", color = "black") +
+  #Plotting the CI
+  geom_vline(xintercept = boot_ci[1], color = "red", linetype = "dashed") +
+  geom_vline(xintercept = boot_ci[2], color = "red", linetype = "dashed") +
+  #plotting the mean
+  geom_vline(xintercept = boot_mean, color = "darkgreen", linetype = "dashed") +
+  labs(x = "Bootstrap Statistics", y = "Frequency") +
+  ggtitle("Histogram of Bootstrap Statistics with 95% Confidence Interval")
+```
+
+
+
 
