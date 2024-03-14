@@ -30,6 +30,7 @@ library("sf")
 library("ggplot2")
 library("readr")
 library("tidyverse")
+library("tibble")
 ```
 
 
@@ -83,8 +84,8 @@ ggplot(plot_data, aes(x = mean_statistic)) +
   geom_vline(xintercept = boot_ci[2], color = "red", linetype = "dashed") +
   #plotting the mean
   geom_vline(xintercept = boot_mean, color = "darkgreen", linetype = "dashed") +
-  labs(x = "Bootstrap Statistics", y = "Frequency") +
-  ggtitle("Histogram of Bootstrap Statistics with 95% Confidence Interval")
+  labs(x = "Mean Difference", y = "Frequency") +
+  ggtitle("Simulated Mean Difference")
 ```
 lets just make sure we get two different sets of results if we run our simulation agian:
 ```{r}
@@ -107,8 +108,41 @@ ggplot(plot_data, aes(x = mean_statistic)) +
   geom_vline(xintercept = boot_ci[2], color = "red", linetype = "dashed") +
   #plotting the mean
   geom_vline(xintercept = boot_mean, color = "darkgreen", linetype = "dashed") +
-  labs(x = "Bootstrap Statistics", y = "Frequency") +
-  ggtitle("Histogram of Bootstrap Statistics with 95% Confidence Interval")
+  labs(x = "Mean Difference", y = "Frequency") +
+  ggtitle("Simulated Mean Difference")
 ```
+Now we can run this simulation a set number of times to determine the distribution of bootstrapped means and confidence intervals (because you can see that they also vary by simulation)
+```{r}
+
+#how many bootstraps to run
+n <- c(1:10)
+
+#creating an empty dataframe to store each new value of the BS
+ci_and_stat <- data.frame(
+  low = integer(),
+  high = integer(), 
+  mean = integer())
+
+#running the sim
+for (num in n){
+  #run one bootstrap
+  boot_stat <- one_bootstrap()$t
+  
+  #get the CIs
+  boot_ci <- quantile(boot_stat, c(0.025, 0.975))
+  low_ci <- boot_ci[1]
+  high_ci <- boot_ci[2]
+  
+  #add it to the dataframe at the nth row in list form
+  ci_and_stat <- rbind(ci_and_stat, list(low_ci, high_ci, mean(boot_stat)))
+}
+```
+Awesome, now we can plot these to see the distribution of confidence intervals and get a pretty good gauge of our simulated statistic:
+
+If the low is more than the mean or if the high is less than the mean make it stand out.
+```{r}
+
+```
+
 
 
