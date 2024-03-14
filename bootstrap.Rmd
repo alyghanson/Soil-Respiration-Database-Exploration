@@ -47,7 +47,7 @@ head(RS)
 #make a function that can compute the mean difference of a dataframe column:
 rs_mean <- function (data, i){
   highs_and_lows<- data[i, ] %>% group_by(Study_midyear) %>% summarize(High = max(Rs_annual), Min = min(Rs_annual))
-  differences <- abs(highs_and_lows$High - highs_and_lows$Min)
+  differences <- (highs_and_lows$High - highs_and_lows$Min)
   return(mean(differences))}
 ```
 
@@ -115,7 +115,7 @@ Now we can run this simulation a set number of times to determine the distributi
 ```{r}
 
 #how many bootstraps to run
-n <- 1:10
+n <- 1:100
 
 # Creating an empty dataframe to store each new value of the BS
 ci_and_stat <- tibble(
@@ -149,22 +149,27 @@ ci_and_stat
 ```
 Awesome, now we can plot these to see the distribution of confidence intervals and get a pretty good gauge of our simulated statistic:
 
-If the low is more than the mean or if the high is less than the mean make it stand out.
 ```{r}
-#ggplot(ci_and_stat, aes(x=n, y=mean_bs) +
-#         geom_point() +
-#         geom_errorbar(aes(ymin = low, ymax = high)))
+test <- RS %>% group_by(Study_midyear) %>% summarize(High = max(Rs_annual))
+test                                        
+```
+
+```{r}
 
 #specify our x and y values
 x <- ci_and_stat$n
 y <- ci_and_stat$mean_bs
+
+#get true mean
+highs_and_lows<- RS %>% group_by(Study_midyear) %>% summarize(High = max(Rs_annual), Min = min(Rs_annual))
+rs_mean_difference <- mean((highs_and_lows$High - highs_and_lows$Min))
+
 ggplot(ci_and_stat, aes(x, y)) + geom_point() +  
 geom_errorbar(aes(ymin = low, ymax = high)) + 
-  labs(x="Bootstap Iteration", y="Annual Respiration")
+  labs(x="Bootstrap Iteration", y="Annual Respiration", main="Distribution of Confidence Intervals in Relation to Observed Statisitc") + 
+   geom_hline(yintercept=rs_mean_difference, color = "Red", linetype="dashed")
+  
 ```
-```{r}
-ggplot()
-```
+We can see here that our observed mean difference is statistically signigicant. Which means that the value we observed with the current sample doesnt nessicerily reflect that of the true population. 
 
-
-
+We will cover the potetal reasons this may be in the next section. 
