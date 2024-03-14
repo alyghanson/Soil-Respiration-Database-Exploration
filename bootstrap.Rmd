@@ -15,7 +15,8 @@ options(width = 105)
 knitr::opts_chunk$set(dev='png', dpi=300, cache=TRUE)
 pdf.options(useDingbats = TRUE)
 ```
-#Estimating the Average Difference Between the Minimum and Maximum Soil Respiration Levels from 1999 t0 2015 in Eastern China
+
+# Estimating the Average Difference Between the Minimum and Maximum Soil Respiration Levels from 1999 t0 2015 in Eastern China
 
 A great tool at our disposal here is bootstrapping. We have a small number of samples, and to begin with there is an element of estimation in this statistic because it would be nearly impossible and extremely expensive to measure the respiration levels in soil across all of Eastern China over the course of many years, but what we do have, is a somewhat sparse data set. 
 
