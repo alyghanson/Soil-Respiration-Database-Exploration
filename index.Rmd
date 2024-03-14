@@ -19,25 +19,29 @@ pdf.options(useDingbats = TRUE)
 ## Project web page for GEOG 495 *R for Earth-System Science Soil Data Project* ##
 A project exploring a sparse data set, asking an exploratory question about the mean differences in Minimum and Maximum annual soil respiration values specifically in China, and simulating the bootstrap method to explore the means of those differences:\
 
-Parts of this project include:\
-- An Introduction to the Data Set & Nature of the Project:\
-  - Who created it\
-  - How it was accumulated\
-  - Potential problems with the data\
-  - Goals\
-- Selecting a subset & exploring the data: Comparing Quality of Data Between Two Countries\
-  - Defining a purpose for the data subset\
-  - Which feature should we investigate further\
-  - Investigating the quality of data\
-- Data Cleaning for an exploratory purpose: China's Annual Soil Respiration\
-  - How do we deal with missing values\
-  - Selecting features to answer an exploratory question\
-  - Potential problems with the data set now that it is cleaned\
-- Bootstrapping: Estimating Confidence in Mean Differences from 1999 - 2015\
-  - What is the bootstrap method\
-  - Why would we use it here\
-  - The simulated values and associated confidence intervals\
-- Conclusion: \
+Parts of this project include:
+
+1. An Introduction to the Data Set & Nature of the Project:
+    a. Who created it
+    b. How it was accumulated
+    c. Potential problems with the data
+    d. Goals
+2. Selecting a subset & exploring the data: Comparing Quality of Data Between Two Countries
+    a. Defining a purpose for the data subset
+    b. Which feature should we investigate further
+    c. Investigating the quality of data
+3. Data Cleaning for an exploratory purpose: China's Annual Soil Respiration
+    a. How do we deal with missing values
+    b. Selecting features to answer an exploratory question
+    c. Potential problems with the data set now that it is cleaned
+4. Bootstrapping: Estimating Confidence in Mean Differences from 1999 - 2015
+    a. What is the bootstrap method
+    b. Why would we use it here
+    c. The simulated values and associated confidence intervals\
+5. Conclusion: 
+    a. Analysis of Bootstrap simulation
+    b. Future thoughts
+    c. Citations
 
 
   

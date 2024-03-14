@@ -61,9 +61,11 @@ one_bootstrap <- function(){
   return (result)}
 ```
 
-Great, now we have some infestructure to run bootstrap simulations. 
+Great, now we have some infrastructure to run bootstrap simulations. 
 First off let's investigate one bootstrap iteration and its associated confidence interval:
-# visualizing the confidence interval of this one bootstraped simmulation:
+
+# Visualizing the Confidence Interval of One Bootstrapped Simmulation:
+
 ```{r}
 #get one set bootstrap statistics
 boot_results <- one_bootstrap()$t
@@ -109,7 +111,7 @@ ggplot(plot_data, aes(x = mean_statistic)) +
   #plotting the mean
   geom_vline(xintercept = boot_mean, color = "darkgreen", linetype = "dashed") +
   labs(x = "Mean Difference", y = "Frequency") +
-  ggtitle("Simulated Mean Difference")
+  ggtitle("Simulated Mean Difference with Confidence Intervals & Mean ")
 ```
 Now we can run this simulation a set number of times to determine the distribution of bootstrapped means and confidence intervals (because you can see that they also vary by simulation)
 ```{r}
@@ -143,19 +145,10 @@ for (num in n) {
     mean_bs = mean(boot_stat)
   ))
 }
-
-ci_and_stat
-
 ```
-Awesome, now we can plot these to see the distribution of confidence intervals and get a pretty good gauge of our simulated statistic:
+Awesome, now we can plot these to see the distribution of confidence intervals and get a pretty good gauge of our simulated statistic in comparison to the observed mean difference:
 
 ```{r}
-test <- RS %>% group_by(Study_midyear) %>% summarize(High = max(Rs_annual))
-test                                        
-```
-
-```{r}
-
 #specify our x and y values
 x <- ci_and_stat$n
 y <- ci_and_stat$mean_bs
@@ -168,8 +161,13 @@ ggplot(ci_and_stat, aes(x, y)) + geom_point() +
 geom_errorbar(aes(ymin = low, ymax = high)) + 
   labs(x="Bootstrap Iteration", y="Annual Respiration", main="Distribution of Confidence Intervals in Relation to Observed Statisitc") + 
    geom_hline(yintercept=rs_mean_difference, color = "Red", linetype="dashed")
-  
 ```
-We can see here that our observed mean difference is statistically signigicant. Which means that the value we observed with the current sample doesnt nessicerily reflect that of the true population. 
 
-We will cover the potetal reasons this may be in the next section. 
+# Observations 
+
+Wild, we can see here that our observed mean difference is statistically significant. Which means that the value we observed with the current sample doesn't necessarily reflect that of the true population. 
+
+A potential reason for this is that there may be bias or outliers in the subset of data (which makes sense, we manipulated a lot here, but we are only exploring, and not drawing any major conclusions). 
+
+Looking back on our line plot, we see that there does seem to be a huge difference between the highest and lowest values in the years 2011, and 2012 which might be having a large impact on the observation statistic, but it might not represent the population well at all. 
+

@@ -347,6 +347,9 @@ $(document).ready(function () {
     <li>
       <a href="bootstrap.html">Bootstrapping: Minimum/Maximum Differences</a>
     </li>
+    <li>
+      <a href="conclusion.html">Analysis and Concusion</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -443,10 +446,15 @@ interval of those as well for an added layer of certainty.</p>
 <span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>one_bootstrap <span class="ot">&lt;-</span> <span class="cf">function</span>(){</span>
 <span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">boot</span>(<span class="at">data =</span> RS, <span class="at">statistic =</span> rs_mean, <span class="at">R =</span> <span class="dv">1000</span>)</span>
 <span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a>  <span class="fu">return</span> (result)}</span></code></pre></div>
-<p>Great, now we have some infestructure to run bootstrap simulations.
+<p>Great, now we have some infrastructure to run bootstrap simulations.
 First off let’s investigate one bootstrap iteration and its associated
-confidence interval: # visualizing the confidence interval of this one
-bootstraped simmulation:</p>
+confidence interval:</p>
+</div>
+<div
+id="visualizing-the-confidence-interval-of-one-bootstrapped-simmulation"
+class="section level1">
+<h1>Visualizing the Confidence Interval of One Bootstrapped
+Simmulation:</h1>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="co">#get one set bootstrap statistics</span></span>
 <span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>boot_results <span class="ot">&lt;-</span> <span class="fu">one_bootstrap</span>()<span class="sc">$</span>t</span>
 <span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a></span>
@@ -491,7 +499,7 @@ simulation agian:</p>
 <span id="cb14-18"><a href="#cb14-18" tabindex="-1"></a>  <span class="co">#plotting the mean</span></span>
 <span id="cb14-19"><a href="#cb14-19" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> boot_mean, <span class="at">color =</span> <span class="st">&quot;darkgreen&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
 <span id="cb14-20"><a href="#cb14-20" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Mean Difference&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frequency&quot;</span>) <span class="sc">+</span></span>
-<span id="cb14-21"><a href="#cb14-21" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Simulated Mean Difference&quot;</span>)</span></code></pre></div>
+<span id="cb14-21"><a href="#cb14-21" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Simulated Mean Difference with Confidence Intervals &amp; Mean &quot;</span>)</span></code></pre></div>
 <p><img src="bootstrap_files/figure-html/unnamed-chunk-6-1.png" width="2100" />
 Now we can run this simulation a set number of times to determine the
 distribution of bootstrapped means and confidence intervals (because you
@@ -524,59 +532,37 @@ can see that they also vary by simulation)</p>
 <span id="cb15-26"><a href="#cb15-26" tabindex="-1"></a>    <span class="at">high =</span> high_ci,</span>
 <span id="cb15-27"><a href="#cb15-27" tabindex="-1"></a>    <span class="at">mean_bs =</span> <span class="fu">mean</span>(boot_stat)</span>
 <span id="cb15-28"><a href="#cb15-28" tabindex="-1"></a>  ))</span>
-<span id="cb15-29"><a href="#cb15-29" tabindex="-1"></a>}</span>
-<span id="cb15-30"><a href="#cb15-30" tabindex="-1"></a></span>
-<span id="cb15-31"><a href="#cb15-31" tabindex="-1"></a>ci_and_stat</span></code></pre></div>
-<pre><code>## # A tibble: 100 × 4
-##        n   low  high mean_bs
-##    &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
-##  1     1  427.  588.    513.
-##  2     2  425.  592.    511.
-##  3     3  423.  590.    511.
-##  4     4  424.  586.    511.
-##  5     5  430.  588.    512.
-##  6     6  429.  589.    514.
-##  7     7  430.  597.    513.
-##  8     8  433.  596.    513.
-##  9     9  425.  586.    513.
-## 10    10  426.  597.    512.
-## # ℹ 90 more rows</code></pre>
+<span id="cb15-29"><a href="#cb15-29" tabindex="-1"></a>}</span></code></pre></div>
 <p>Awesome, now we can plot these to see the distribution of confidence
-intervals and get a pretty good gauge of our simulated statistic:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>test <span class="ot">&lt;-</span> RS <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(Study_midyear) <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="at">High =</span> <span class="fu">max</span>(Rs_annual))</span>
-<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a>test                                        </span></code></pre></div>
-<pre><code>## # A tibble: 30 × 2
-##    Study_midyear   High
-##            &lt;dbl&gt;  &lt;dbl&gt;
-##  1         2000.  775  
-##  2         2000    80.0
-##  3         2001    79.2
-##  4         2003  1240  
-##  5         2004. 1586  
-##  6         2004   992  
-##  7         2004. 1173  
-##  8         2005   720  
-##  9         2006.  851  
-## 10         2006   822  
-## # ℹ 20 more rows</code></pre>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="co">#specify our x and y values</span></span>
-<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> ci_and_stat<span class="sc">$</span>n</span>
-<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a>y <span class="ot">&lt;-</span> ci_and_stat<span class="sc">$</span>mean_bs</span>
-<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a></span>
-<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a><span class="co">#get true mean</span></span>
-<span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a>highs_and_lows<span class="ot">&lt;-</span> RS <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(Study_midyear) <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="at">High =</span> <span class="fu">max</span>(Rs_annual), <span class="at">Min =</span> <span class="fu">min</span>(Rs_annual))</span>
-<span id="cb19-7"><a href="#cb19-7" tabindex="-1"></a>rs_mean_difference <span class="ot">&lt;-</span> <span class="fu">mean</span>((highs_and_lows<span class="sc">$</span>High <span class="sc">-</span> highs_and_lows<span class="sc">$</span>Min))</span>
-<span id="cb19-8"><a href="#cb19-8" tabindex="-1"></a></span>
-<span id="cb19-9"><a href="#cb19-9" tabindex="-1"></a><span class="fu">ggplot</span>(ci_and_stat, <span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span>  </span>
-<span id="cb19-10"><a href="#cb19-10" tabindex="-1"></a><span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> low, <span class="at">ymax =</span> high)) <span class="sc">+</span> </span>
-<span id="cb19-11"><a href="#cb19-11" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Bootstrap Iteration&quot;</span>, <span class="at">y=</span><span class="st">&quot;Annual Respiration&quot;</span>, <span class="at">main=</span><span class="st">&quot;Distribution of Confidence Intervals in Relation to Observed Statisitc&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb19-12"><a href="#cb19-12" tabindex="-1"></a>   <span class="fu">geom_hline</span>(<span class="at">yintercept=</span>rs_mean_difference, <span class="at">color =</span> <span class="st">&quot;Red&quot;</span>, <span class="at">linetype=</span><span class="st">&quot;dashed&quot;</span>)</span></code></pre></div>
-<p><img src="bootstrap_files/figure-html/unnamed-chunk-9-1.png" width="2100" />
-We can see here that our observed mean difference is statistically
-signigicant. Which means that the value we observed with the current
-sample doesnt nessicerily reflect that of the true population.</p>
-<p>We will cover the potetal reasons this may be in the next
-section.</p>
+intervals and get a pretty good gauge of our simulated statistic in
+comparison to the observed mean difference:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="co">#specify our x and y values</span></span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> ci_and_stat<span class="sc">$</span>n</span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a>y <span class="ot">&lt;-</span> ci_and_stat<span class="sc">$</span>mean_bs</span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a><span class="co">#get true mean</span></span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a>highs_and_lows<span class="ot">&lt;-</span> RS <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(Study_midyear) <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="at">High =</span> <span class="fu">max</span>(Rs_annual), <span class="at">Min =</span> <span class="fu">min</span>(Rs_annual))</span>
+<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a>rs_mean_difference <span class="ot">&lt;-</span> <span class="fu">mean</span>((highs_and_lows<span class="sc">$</span>High <span class="sc">-</span> highs_and_lows<span class="sc">$</span>Min))</span>
+<span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a><span class="fu">ggplot</span>(ci_and_stat, <span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span>  </span>
+<span id="cb16-10"><a href="#cb16-10" tabindex="-1"></a><span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> low, <span class="at">ymax =</span> high)) <span class="sc">+</span> </span>
+<span id="cb16-11"><a href="#cb16-11" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Bootstrap Iteration&quot;</span>, <span class="at">y=</span><span class="st">&quot;Annual Respiration&quot;</span>, <span class="at">main=</span><span class="st">&quot;Distribution of Confidence Intervals in Relation to Observed Statisitc&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb16-12"><a href="#cb16-12" tabindex="-1"></a>   <span class="fu">geom_hline</span>(<span class="at">yintercept=</span>rs_mean_difference, <span class="at">color =</span> <span class="st">&quot;Red&quot;</span>, <span class="at">linetype=</span><span class="st">&quot;dashed&quot;</span>)</span></code></pre></div>
+<p><img src="bootstrap_files/figure-html/unnamed-chunk-8-1.png" width="2100" /></p>
+</div>
+<div id="observations" class="section level1">
+<h1>Observations</h1>
+<p>Wild, we can see here that our observed mean difference is
+statistically significant. Which means that the value we observed with
+the current sample doesn’t necessarily reflect that of the true
+population.</p>
+<p>A potential reason for this is that there may be bias or outliers in
+the subset of data (which makes sense, we manipulated a lot here, but we
+are only exploring, and not drawing any major conclusions).</p>
+<p>Looking back on our line plot, we see that there does seem to be a
+huge difference between the highest and lowest values in the years 2011,
+and 2012 which might be having a large impact on the observation
+statistic, but it might not represent the population well at all.</p>
 </div>
 
 

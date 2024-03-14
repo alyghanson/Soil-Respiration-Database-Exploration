@@ -13,6 +13,8 @@ navbar:
       href: cleaning.html
     - text: "Bootstrapping: Minimum/Maximum Differences"
       href: bootstrap.html
+    - text: "Analysis and Concusion"
+      href: conclusion.html
   right:
   - text: "About Project"
     href: about.html

@@ -65,7 +65,7 @@ Okay that seems much better, let's take a look at the distribution of soil respi
 ## Distribution of Annual Soil Respiration:
 
 ```{r}
-hist(cleaned_china$Rs_annual, main = "Distribution of Anual Soil Respiration: China 1995 - 2015", xlab = "Annual Respiration (g Cm^(-2))", color="darkgreen")
+hist(cleaned_china$Rs_annual, main = "Distribution of Anual Soil Respiration: China 1995 - 2015", xlab = "Annual Respiration (g Cm^(-2))", col="darkgreen")
 ```
 
 And similarly to our last section I want to see the geographical distribution of this new cleaned data subset. 

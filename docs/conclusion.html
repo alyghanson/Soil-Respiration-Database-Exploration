@@ -11,7 +11,7 @@
 
 
 
-<title>GEOG490 Soil Project</title>
+<title>Analysis</title>
 
 <script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -269,59 +269,46 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">GEOG490 Soil Project</h1>
+<h1 class="title toc-ignore">Analysis</h1>
 
 </div>
 
 
-<div
-id="project-web-page-for-geog-495-r-for-earth-system-science-soil-data-project"
-class="section level2">
-<h2>Project web page for GEOG 495 <em>R for Earth-System Science Soil
-Data Project</em></h2>
-<p>A project exploring a sparse data set, asking an exploratory question
-about the mean differences in Minimum and Maximum annual soil
-respiration values specifically in China, and simulating the bootstrap
-method to explore the means of those differences:<br />
+<div id="bootstrap-results" class="section level1">
+<h1>Bootstrap Results</h1>
+<p>As we can see, our observed value is always more than our highest
+confidence interval. This can happen for a couple of reasons, but
+mainly, I think what we have here is that there may be outliers and bias
+in our data. We see vast change in differences from year to year, but we
+are also only looking at a tiny subset of the data we started with, when
+we continuously subset we are potentially introducing bias into the
+simulation, which can result in an observed statistic that is way out in
+left field, this also indicates that our observed mean difference is not
+an accurate represendation of the population.</p>
+</div>
+<div id="thoughts-moving-forward" class="section level1">
+<h1>Thoughts Moving Forward</h1>
+<p>This data set was challenging to use for statistical analysis, it is
+missing vast amounts of information, and oftentimes the same study or
+studies done by the same outhor share certain features, but lack others,
+this resulted in a very small subset beign selected. I also want to note
+that this is only exploratory and I am not drawing any major conclusions
+about the findings from the simulation, only observing. I think moving
+forward with this set I would want to instead, find the mean difference
+using all country data, I thought being more selective would narrow down
+the features varriance, however, I think i may have introduce selective
+bias into the simulation.<br />
+<br />
+I feel that I understand how to move through this data set more
+efficiently, and also believe there are many more exploratory branches
+to climb. If I were to formulate a question before sub-setting, then we
+would be able to run simulations and take the results more seriously.
+This would be the case because sub-setting then coming up with a
+question is already a biased approach. <br />
+In future earth science exploratory analysis, I might try to find a data
+set that is fuller, and less broad in its features, then I will have
+more time and energy to be able to run other types of analysis.<br />
 </p>
-<p>Parts of this project include:</p>
-<ol style="list-style-type: decimal">
-<li>An Introduction to the Data Set &amp; Nature of the Project:
-<ol style="list-style-type: lower-alpha">
-<li>Who created it</li>
-<li>How it was accumulated</li>
-<li>Potential problems with the data</li>
-<li>Goals</li>
-</ol></li>
-<li>Selecting a subset &amp; exploring the data: Comparing Quality of
-Data Between Two Countries
-<ol style="list-style-type: lower-alpha">
-<li>Defining a purpose for the data subset</li>
-<li>Which feature should we investigate further</li>
-<li>Investigating the quality of data</li>
-</ol></li>
-<li>Data Cleaning for an exploratory purpose: China’s Annual Soil
-Respiration
-<ol style="list-style-type: lower-alpha">
-<li>How do we deal with missing values</li>
-<li>Selecting features to answer an exploratory question</li>
-<li>Potential problems with the data set now that it is cleaned</li>
-</ol></li>
-<li>Bootstrapping: Estimating Confidence in Mean Differences from 1999 -
-2015
-<ol style="list-style-type: lower-alpha">
-<li>What is the bootstrap method</li>
-<li>Why would we use it here</li>
-<li>The simulated values and associated confidence intervals<br />
-</li>
-</ol></li>
-<li>Conclusion:
-<ol style="list-style-type: lower-alpha">
-<li>Analysis of Bootstrap simulation</li>
-<li>Future thoughts</li>
-<li>Citations</li>
-</ol></li>
-</ol>
 </div>
 
 

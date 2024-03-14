@@ -347,6 +347,9 @@ $(document).ready(function () {
     <li>
       <a href="bootstrap.html">Bootstrapping: Minimum/Maximum Differences</a>
     </li>
+    <li>
+      <a href="conclusion.html">Analysis and Concusion</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -594,28 +597,23 @@ soil respiration:</p>
 <div id="distribution-of-annual-soil-respiration"
 class="section level2">
 <h2>Distribution of Annual Soil Respiration:</h2>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">hist</span>(cleaned_china<span class="sc">$</span>Rs_annual, <span class="at">main =</span> <span class="st">&quot;Distribution of Anual Soil Respiration: China 1995 - 2015&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Annual Respiration (g Cm^(-2))&quot;</span>, <span class="at">color=</span><span class="st">&quot;darkgreen&quot;</span>)</span></code></pre></div>
-<pre><code>## Warning in plot.window(xlim, ylim, &quot;&quot;, ...): &quot;color&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...): &quot;color&quot; is not a graphical
-## parameter</code></pre>
-<pre><code>## Warning in axis(1, ...): &quot;color&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(2, at = yt, ...): &quot;color&quot; is not a graphical parameter</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">hist</span>(cleaned_china<span class="sc">$</span>Rs_annual, <span class="at">main =</span> <span class="st">&quot;Distribution of Anual Soil Respiration: China 1995 - 2015&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Annual Respiration (g Cm^(-2))&quot;</span>, <span class="at">col=</span><span class="st">&quot;darkgreen&quot;</span>)</span></code></pre></div>
 <p><img src="cleaning_files/figure-html/unnamed-chunk-5-1.png" width="2100" /></p>
 <p>And similarly to our last section I want to see the geographical
 distribution of this new cleaned data subset.</p>
 </div>
 <div id="graphing-the-new-cleaned-data-set" class="section level2">
 <h2>Graphing the new cleaned data set:</h2>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="co">#Make a base map</span></span>
-<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>china_map <span class="ot">=</span> <span class="fu">map_data</span>(<span class="st">&quot;worldHires&quot;</span>, <span class="at">region =</span> <span class="st">&quot;china&quot;</span>)</span>
-<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a></span>
-<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a><span class="co">#added noise to the points x and y values</span></span>
-<span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a><span class="co">#color by Rs_annual</span></span>
-<span id="cb18-6"><a href="#cb18-6" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb18-7"><a href="#cb18-7" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(<span class="at">data =</span> china_map, <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">group =</span> group), <span class="at">fill =</span> <span class="st">&quot;lightblue&quot;</span>, <span class="at">color=</span><span class="st">&#39;black&#39;</span>) <span class="sc">+</span></span>
-<span id="cb18-8"><a href="#cb18-8" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> cleaned_china, <span class="fu">aes</span>(<span class="at">x =</span> Longitude<span class="sc">+</span><span class="fu">rnorm</span>(<span class="at">n=</span><span class="fu">nrow</span>(cleaned_china)), <span class="at">y =</span> Latitude<span class="sc">+</span><span class="fu">rnorm</span>(<span class="at">n=</span><span class="fu">nrow</span>(cleaned_china)), <span class="at">color=</span>Rs_annual)) <span class="sc">+</span></span>
-<span id="cb18-9"><a href="#cb18-9" tabindex="-1"></a>  <span class="fu">coord_map</span>(<span class="at">projection =</span> <span class="st">&quot;mercator&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb18-10"><a href="#cb18-10" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Map of Soil Sample Sites in China&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Longitude&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Latitude&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="co">#Make a base map</span></span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>china_map <span class="ot">=</span> <span class="fu">map_data</span>(<span class="st">&quot;worldHires&quot;</span>, <span class="at">region =</span> <span class="st">&quot;china&quot;</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a><span class="co">#added noise to the points x and y values</span></span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a><span class="co">#color by Rs_annual</span></span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(<span class="at">data =</span> china_map, <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">group =</span> group), <span class="at">fill =</span> <span class="st">&quot;lightblue&quot;</span>, <span class="at">color=</span><span class="st">&#39;black&#39;</span>) <span class="sc">+</span></span>
+<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> cleaned_china, <span class="fu">aes</span>(<span class="at">x =</span> Longitude<span class="sc">+</span><span class="fu">rnorm</span>(<span class="at">n=</span><span class="fu">nrow</span>(cleaned_china)), <span class="at">y =</span> Latitude<span class="sc">+</span><span class="fu">rnorm</span>(<span class="at">n=</span><span class="fu">nrow</span>(cleaned_china)), <span class="at">color=</span>Rs_annual)) <span class="sc">+</span></span>
+<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a>  <span class="fu">coord_map</span>(<span class="at">projection =</span> <span class="st">&quot;mercator&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Map of Soil Sample Sites in China&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Longitude&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Latitude&quot;</span>)</span></code></pre></div>
 <p><img src="cleaning_files/figure-html/unnamed-chunk-6-1.png" width="2100" />
 Great, We can see here that there is a pretty wide range of values of
 Annual Respiration. I am now goign to ask the question, what is the
@@ -629,8 +627,8 @@ class="section level2">
 Soil Respiration:</h2>
 <p>First lets calculate the median for each year (mostly to increase
 understanding in the data):</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>Rs_median <span class="ot">&lt;-</span> cleaned_china <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(Study_midyear) <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="at">Median =</span> <span class="fu">median</span>(Rs_annual), <span class="at">High =</span> <span class="fu">max</span>(Rs_annual), <span class="at">Min =</span> <span class="fu">min</span>(Rs_annual))</span>
-<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>Rs_median</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>Rs_median <span class="ot">&lt;-</span> cleaned_china <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(Study_midyear) <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="at">Median =</span> <span class="fu">median</span>(Rs_annual), <span class="at">High =</span> <span class="fu">max</span>(Rs_annual), <span class="at">Min =</span> <span class="fu">min</span>(Rs_annual))</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>Rs_median</span></code></pre></div>
 <pre><code>## # A tibble: 30 × 4
 ##    Study_midyear Median   High   Min
 ##            &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
@@ -645,14 +643,14 @@ understanding in the data):</p>
 ##  9         2006.  824.   851   662  
 ## 10         2006   530    822   322  
 ## # ℹ 20 more rows</code></pre>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a>mmm <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(Rs_median, <span class="fu">aes</span>(<span class="at">x =</span> Study_midyear)) <span class="sc">+</span></span>
-<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> Median, <span class="at">color =</span> <span class="st">&quot;Median&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> High, <span class="at">color =</span> <span class="st">&quot;Maximum&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> Min, <span class="at">color =</span> <span class="st">&quot;Minimum&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Study Year&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Annual Soil Respiration (g Cm^(-2))&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Median, Maximum, and Minimum Soil Respiration in China&quot;</span>) <span class="sc">+</span></span>
-<span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;Median&quot;</span> <span class="ot">=</span> <span class="st">&quot;darkblue&quot;</span>, <span class="st">&quot;Maximum&quot;</span> <span class="ot">=</span> <span class="st">&quot;darkred&quot;</span>, <span class="st">&quot;Minimum&quot;</span> <span class="ot">=</span> <span class="st">&quot;darkgreen&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb21-7"><a href="#cb21-7" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb21-8"><a href="#cb21-8" tabindex="-1"></a>mmm</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>mmm <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(Rs_median, <span class="fu">aes</span>(<span class="at">x =</span> Study_midyear)) <span class="sc">+</span></span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> Median, <span class="at">color =</span> <span class="st">&quot;Median&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> High, <span class="at">color =</span> <span class="st">&quot;Maximum&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> Min, <span class="at">color =</span> <span class="st">&quot;Minimum&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Study Year&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Annual Soil Respiration (g Cm^(-2))&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Median, Maximum, and Minimum Soil Respiration in China&quot;</span>) <span class="sc">+</span></span>
+<span id="cb17-6"><a href="#cb17-6" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;Median&quot;</span> <span class="ot">=</span> <span class="st">&quot;darkblue&quot;</span>, <span class="st">&quot;Maximum&quot;</span> <span class="ot">=</span> <span class="st">&quot;darkred&quot;</span>, <span class="st">&quot;Minimum&quot;</span> <span class="ot">=</span> <span class="st">&quot;darkgreen&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb17-7"><a href="#cb17-7" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb17-8"><a href="#cb17-8" tabindex="-1"></a>mmm</span></code></pre></div>
 <p><img src="cleaning_files/figure-html/unnamed-chunk-8-1.png" width="2100" /></p>
 <p>We see here the temporal changes from 1999 to 2015, and we see how
 the soil respiration really fluctuates from year to year with an
@@ -663,8 +661,8 @@ interesting to me are the gaps between the min and max values for each
 year. This is what we will investigate in the next section, by sampling
 the small subset we are left with and calculating a distribution of
 total mean differences between the max and min values.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="co">#export as new csv for bootstapping:</span></span>
-<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a><span class="fu">write.csv</span>(cleaned_china, <span class="at">file =</span> <span class="st">&quot;china_clean.csv&quot;</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="co">#export as new csv for bootstapping:</span></span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a><span class="fu">write.csv</span>(cleaned_china, <span class="at">file =</span> <span class="st">&quot;china_clean.csv&quot;</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 </div>
 </div>
 

@@ -250,6 +250,9 @@ $(document).ready(function () {
     <li>
       <a href="bootstrap.html">Bootstrapping: Minimum/Maximum Differences</a>
     </li>
+    <li>
+      <a href="conclusion.html">Analysis and Concusion</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -276,7 +279,7 @@ class="section level1">
 <h1>About The Global Soil Respiration Database:</h1>
 <p><img src="SRDB_V5_Figure1.jpg"
 alt="SRDB Distribution of Data by Oak Ridge National Labratory" /> Map
-by Oakridge National Labratory</p>
+by Oakridge National Laboratory</p>
 <p>A Global Database of Soil Respiration Data (SRDB) was updated in 2021
 as Version 5.0 as a project by Oak Ridge National Laboratory. This
 includes multiple files, the main of which include the data file,
@@ -297,15 +300,18 @@ additions in an attempt to make the overall data set more representative
 of the information in journals on soil respiration, this broadened the
 spatial scope greatly, and in order to tell the story well, I will
 subset this data set to look at data pertaining to a single country that
-has the highest frequency of occurrences, and lowest percentace of NULL
+has the highest frequency of occurrences, and lowest percentage of NULL
 values.</p>
-<p>We will:<br />
-1. Talk about missing values, and how they have changed depending on the
-temporal aspect.<br />
-2. Inspect the environment of observations, and compare soil respiration
-levels.<br />
-3. Ask the question - Have those environments changed over time?<br />
-</p>
+<p>We will:</p>
+<ol style="list-style-type: decimal">
+<li>Talk about missing values, and how they have changed depending on
+the temporal aspect.</li>
+<li>Inspect the environment of observations, and compare soil
+respiration levels.</li>
+<li>Run a bootstrap model on one statistic</li>
+<li>Think about the meaning of this bootstrap simulation</li>
+<li>Talk about further ideas</li>
+</ol>
 <p>An interesting feature of this data set is that the creators have
 included Quality flags. This is a very useful feature to us because I
 can easily drop observations if they are of no use, or if they coincide
