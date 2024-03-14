@@ -487,31 +487,66 @@ Now we can run this simulation a set number of times to determine the
 distribution of bootstrapped means and confidence intervals (because you
 can see that they also vary by simulation)</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="co">#how many bootstraps to run</span></span>
-<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span>
 <span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="co">#creating an empty dataframe to store each new value of the BS</span></span>
-<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>ci_and_stat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>  <span class="at">low =</span> <span class="fu">integer</span>(),</span>
-<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a>  <span class="at">high =</span> <span class="fu">integer</span>(), </span>
-<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a>  <span class="at">mean =</span> <span class="fu">integer</span>())</span>
-<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a></span>
-<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a><span class="co">#running the sim</span></span>
-<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a><span class="cf">for</span> (num <span class="cf">in</span> n){</span>
-<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a>  <span class="co">#run one bootstrap</span></span>
-<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a>  boot_stat <span class="ot">&lt;-</span> <span class="fu">one_bootstrap</span>()<span class="sc">$</span>t</span>
-<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a>  </span>
-<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a>  <span class="co">#get the CIs</span></span>
-<span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a>  boot_ci <span class="ot">&lt;-</span> <span class="fu">quantile</span>(boot_stat, <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span>
-<span id="cb10-17"><a href="#cb10-17" tabindex="-1"></a>  low_ci <span class="ot">&lt;-</span> boot_ci[<span class="dv">1</span>]</span>
-<span id="cb10-18"><a href="#cb10-18" tabindex="-1"></a>  high_ci <span class="ot">&lt;-</span> boot_ci[<span class="dv">2</span>]</span>
-<span id="cb10-19"><a href="#cb10-19" tabindex="-1"></a>  </span>
-<span id="cb10-20"><a href="#cb10-20" tabindex="-1"></a>  <span class="co">#add it to the dataframe at the nth row in list form</span></span>
-<span id="cb10-21"><a href="#cb10-21" tabindex="-1"></a>  ci_and_stat <span class="ot">&lt;-</span> <span class="fu">rbind</span>(ci_and_stat, <span class="fu">list</span>(low_ci, high_ci, <span class="fu">mean</span>(boot_stat)))</span>
-<span id="cb10-22"><a href="#cb10-22" tabindex="-1"></a>}</span></code></pre></div>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="co"># Creating an empty dataframe to store each new value of the BS</span></span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>ci_and_stat <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>  <span class="at">n =</span> <span class="fu">integer</span>(),</span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a>  <span class="at">low =</span> <span class="fu">double</span>(),</span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a>  <span class="at">high =</span> <span class="fu">double</span>(), </span>
+<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a>  <span class="at">mean_bs =</span> <span class="fu">double</span>()</span>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a>)</span>
+<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a><span class="co"># Running the simulation</span></span>
+<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a><span class="cf">for</span> (num <span class="cf">in</span> n) {</span>
+<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a>  <span class="co"># Run one bootstrap</span></span>
+<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a>  boot_stat <span class="ot">&lt;-</span> <span class="fu">one_bootstrap</span>()<span class="sc">$</span>t</span>
+<span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a>  </span>
+<span id="cb10-17"><a href="#cb10-17" tabindex="-1"></a>  <span class="co"># Get the CIs</span></span>
+<span id="cb10-18"><a href="#cb10-18" tabindex="-1"></a>  boot_ci <span class="ot">&lt;-</span> <span class="fu">quantile</span>(boot_stat, <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span>
+<span id="cb10-19"><a href="#cb10-19" tabindex="-1"></a>  low_ci <span class="ot">&lt;-</span> boot_ci[<span class="dv">1</span>]</span>
+<span id="cb10-20"><a href="#cb10-20" tabindex="-1"></a>  high_ci <span class="ot">&lt;-</span> boot_ci[<span class="dv">2</span>]</span>
+<span id="cb10-21"><a href="#cb10-21" tabindex="-1"></a>  </span>
+<span id="cb10-22"><a href="#cb10-22" tabindex="-1"></a>  <span class="co"># Add it to the dataframe</span></span>
+<span id="cb10-23"><a href="#cb10-23" tabindex="-1"></a>  ci_and_stat <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(ci_and_stat, <span class="fu">tibble</span>(</span>
+<span id="cb10-24"><a href="#cb10-24" tabindex="-1"></a>    <span class="at">n =</span> num,</span>
+<span id="cb10-25"><a href="#cb10-25" tabindex="-1"></a>    <span class="at">low =</span> low_ci,</span>
+<span id="cb10-26"><a href="#cb10-26" tabindex="-1"></a>    <span class="at">high =</span> high_ci,</span>
+<span id="cb10-27"><a href="#cb10-27" tabindex="-1"></a>    <span class="at">mean_bs =</span> <span class="fu">mean</span>(boot_stat)</span>
+<span id="cb10-28"><a href="#cb10-28" tabindex="-1"></a>  ))</span>
+<span id="cb10-29"><a href="#cb10-29" tabindex="-1"></a>}</span>
+<span id="cb10-30"><a href="#cb10-30" tabindex="-1"></a></span>
+<span id="cb10-31"><a href="#cb10-31" tabindex="-1"></a>ci_and_stat</span></code></pre></div>
+<pre><code>## # A tibble: 10 × 4
+##        n   low  high mean_bs
+##    &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+##  1     1  420.  587.    512.
+##  2     2  426.  589.    514.
+##  3     3  428.  588.    511.
+##  4     4  433.  588.    512.
+##  5     5  433.  588.    513.
+##  6     6  427.  590.    513.
+##  7     7  431.  588.    511.
+##  8     8  424.  587.    510.
+##  9     9  429.  582.    510.
+## 10    10  417.  587.    511.</code></pre>
 <p>Awesome, now we can plot these to see the distribution of confidence
 intervals and get a pretty good gauge of our simulated statistic:</p>
 <p>If the low is more than the mean or if the high is less than the mean
 make it stand out.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="co">#ggplot(ci_and_stat, aes(x=n, y=mean_bs) +</span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a><span class="co">#         geom_point() +</span></span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a><span class="co">#         geom_errorbar(aes(ymin = low, ymax = high)))</span></span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a><span class="co">#specify our x and y values</span></span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a>x <span class="ot">&lt;-</span> ci_and_stat<span class="sc">$</span>n</span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a>y <span class="ot">&lt;-</span> ci_and_stat<span class="sc">$</span>mean_bs</span>
+<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a><span class="fu">ggplot</span>(ci_and_stat, <span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span>  </span>
+<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a><span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> low, <span class="at">ymax =</span> high)) <span class="sc">+</span> </span>
+<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Bootstap Iteration&quot;</span>, <span class="at">y=</span><span class="st">&quot;Annual Respiration&quot;</span>)</span></code></pre></div>
+<p><img src="bootstrap_files/figure-html/unnamed-chunk-8-1.png" width="2100" /></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">ggplot</span>()</span></code></pre></div>
+<p><img src="bootstrap_files/figure-html/unnamed-chunk-9-1.png" width="2100" /></p>
 </div>
 
 

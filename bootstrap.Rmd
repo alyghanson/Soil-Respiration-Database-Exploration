@@ -115,33 +115,55 @@ Now we can run this simulation a set number of times to determine the distributi
 ```{r}
 
 #how many bootstraps to run
-n <- c(1:10)
+n <- 1:10
 
-#creating an empty dataframe to store each new value of the BS
-ci_and_stat <- data.frame(
-  low = integer(),
-  high = integer(), 
-  mean = integer())
+# Creating an empty dataframe to store each new value of the BS
+ci_and_stat <- tibble(
+  n = integer(),
+  low = double(),
+  high = double(), 
+  mean_bs = double()
+)
 
-#running the sim
-for (num in n){
-  #run one bootstrap
+# Running the simulation
+for (num in n) {
+  # Run one bootstrap
   boot_stat <- one_bootstrap()$t
   
-  #get the CIs
+  # Get the CIs
   boot_ci <- quantile(boot_stat, c(0.025, 0.975))
   low_ci <- boot_ci[1]
   high_ci <- boot_ci[2]
   
-  #add it to the dataframe at the nth row in list form
-  ci_and_stat <- rbind(ci_and_stat, list(low_ci, high_ci, mean(boot_stat)))
+  # Add it to the dataframe
+  ci_and_stat <- bind_rows(ci_and_stat, tibble(
+    n = num,
+    low = low_ci,
+    high = high_ci,
+    mean_bs = mean(boot_stat)
+  ))
 }
+
+ci_and_stat
+
 ```
 Awesome, now we can plot these to see the distribution of confidence intervals and get a pretty good gauge of our simulated statistic:
 
 If the low is more than the mean or if the high is less than the mean make it stand out.
 ```{r}
+#ggplot(ci_and_stat, aes(x=n, y=mean_bs) +
+#         geom_point() +
+#         geom_errorbar(aes(ymin = low, ymax = high)))
 
+#specify our x and y values
+x <- ci_and_stat$n
+y <- ci_and_stat$mean_bs
+ggplot(ci_and_stat, aes(x, y)) + geom_point() +  
+geom_errorbar(aes(ymin = low, ymax = high)) + 
+  labs(x="Bootstap Iteration", y="Annual Respiration")
+```
+```{r}
+ggplot()
 ```
 
 
