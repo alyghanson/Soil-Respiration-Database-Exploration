@@ -16,7 +16,7 @@ knitr::opts_chunk$set(dev='png', dpi=300, cache=TRUE)
 pdf.options(useDingbats = TRUE)
 ```
 
-## Project web page for GEOG 495 *R for Earth-System Science Soil Data Project* ##
+## Project web page for GEOG 490 *R for Earth-System Science Soil Data Project* ##
 A project exploring a sparse data set, asking an exploratory question about the mean differences in Minimum and Maximum annual soil respiration values specifically in China, and simulating the bootstrap method to explore the means of those differences:\
 
 Parts of this project include:
