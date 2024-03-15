@@ -22,18 +22,16 @@ ahanson2@uoregon.edu
 
 
 # Some details about the project:
-This project was for a GEOG 490 Special Topics: Earth Science in R at University of Oregon
+This project was for GEOG 490 Special Topics: Earth Science in R at University of Oregon
 
-The Topic was chosen with the hope of experiencing a different type of data set, made especially interesting with the amount of missing and inconsistent data, as is the nature of a data base containing many different journal publications' data and a wide range of studies pertaining to soil respiration. 
+The topic was chosen with the hope of experiencing a different type of data set, made especially interesting with the amount of missing and inconsistent data, as is the nature of a data base containing many different journal publications' data and a wide range of studies pertaining to soil respiration. 
 
 Thank you to Prof. Pat Bartlein for the CSS Styling file used to make this webpage!
-
 
 # Some details about me: 
 Current Student of Data Science at University of Oregon, 
 I'm interested in pursing Machine Learning Techniques for 
 Computer Vision Technology, and hope to combine geography, computer science, and statistics in future work.
-
 
 I like mangos, biking, and my two cats: Lilla Borris and Michael Borris.\
 

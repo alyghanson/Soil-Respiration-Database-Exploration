@@ -17,7 +17,7 @@ pdf.options(useDingbats = TRUE)
 ```
 
 ## Project web page for GEOG 490 *R for Earth-System Science Soil Data Project* ##
-A project exploring a sparse data set, asking an exploratory question about the mean differences in Minimum and Maximum annual soil respiration values specifically in China, and simulating the bootstrap method to explore the means of those differences:\
+A project exploring a sparse data set, asking an exploratory question about the mean differences in minimum and maximum annual soil respiration values specifically in China, and simulating the bootstrap method to explore the means of those differences:\
 
 Parts of this project include:
 

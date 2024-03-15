@@ -18,11 +18,11 @@ pdf.options(useDingbats = TRUE)
 
 # About The Global Soil Respiration Database:
 ![SRDB Distribution of Data by Oak Ridge National Labratory](./SRDB_V5_Figure1.jpg){}
-Map by Oakridge National Laboratory
+Map by Oak Ridge National Laboratory
 
 A Global Database of Soil Respiration Data (SRDB) was updated in 2021 as Version 5.0 as a project by Oak Ridge National Laboratory. This includes multiple files, the main of which include the data file, contributor information file, and the calculations used to estimate and predict missing values.
 
-The nature of this database is very interesting. The set covers a very broad temporal and spatial scope, containing data from 2,266 publications pertaining to years between 1961 and 2017. This data covers various aspects of the soil respiration process, tracking the levels of carbon dioxide (CO_2) as living materials decompose, information on the biomes, and many other features. Unfortunately, the data (because it is aggregated across many publications) is very inconsistent, this is because some studies may night have documented most of the features shown in this set, while another study may have a very different scientific approach.
+The nature of this database is very interesting. The set covers a very broad temporal and spatial scope, containing data from 2,266 publications pertaining to years between 1961 and 2017. This data covers various aspects of the soil respiration process, tracking the levels of carbon dioxide (CO_2) as living materials decompose, information on the biomes, and many other features. Unfortunately, the data (because it is aggregated across many publications) is very inconsistent, this is because some studies may not have documented most of the features shown in this set, while another study may have a very different scientific approach.
 
 In 2017 this data set translated both Chinese and Russian data set additions in an attempt to make the overall data set more representative of the information in journals on soil respiration, this broadened the spatial scope greatly, and in order to tell the story well, I will subset this data set to look at data pertaining to a single country that has the highest frequency of occurrences, and lowest percentage of NULL values.
 

@@ -534,7 +534,7 @@ class="section level1">
 ##                    
 ## </code></pre>
 <p>Great, we see the length of this set is 663, and we have a very large
-amount of NULL values which is one of the main obsicles with this
+amount of NULL values which is one of the main obstacles with this
 dataset.</p>
 <div id="how-many-null-values" class="section level2">
 <h2>How many NULL Values?</h2>
@@ -615,17 +615,17 @@ distribution of this new cleaned data subset.</p>
 <span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a>  <span class="fu">coord_map</span>(<span class="at">projection =</span> <span class="st">&quot;mercator&quot;</span>) <span class="sc">+</span> </span>
 <span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Map of Soil Sample Sites in China&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Longitude&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Latitude&quot;</span>)</span></code></pre></div>
 <p><img src="cleaning_files/figure-html/unnamed-chunk-6-1.png" width="2100" />
-Great, We can see here that there is a pretty wide range of values of
-Annual Respiration. I am now goign to ask the question, what is the
-average difference between the Maximum and Minimum Annual Soil
-Respiration values in China?</p>
+Great, we can see here that there is a pretty wide range of values of
+annual respiration. I am now going to ask the question, what is the
+average difference between the maximum and minimum annual soil
+respiration values in China?</p>
 </div>
 <div
 id="thinking-about-the-average-difference-of-minimum-and-maximum-annual-soil-respiration"
 class="section level2">
-<h2>Thinking about The Average Difference of Minimum and Maximum Annual
+<h2>Thinking About the Average Difference of Minimum and Maximum Annual
 Soil Respiration:</h2>
-<p>First lets calculate the median for each year (mostly to increase
+<p>First let’s calculate the median for each year (mostly to increase
 understanding in the data):</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>Rs_median <span class="ot">&lt;-</span> cleaned_china <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(Study_midyear) <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="at">Median =</span> <span class="fu">median</span>(Rs_annual), <span class="at">High =</span> <span class="fu">max</span>(Rs_annual), <span class="at">Min =</span> <span class="fu">min</span>(Rs_annual))</span>
 <span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>Rs_median</span></code></pre></div>

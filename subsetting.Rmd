@@ -59,7 +59,7 @@ ggplot() +
   #graph text
   labs(title = "Map of Soil Sample Sites", x = "Longitude", y = "Latitude") 
 ```
-We can see some of the globe has a very space distribution of information, I am thinking of subseting the data to get a better picture of just one country.
+We can see some of the globe has a very sparse distribution of information, I am thinking of subseting the data to get a better picture of just one country.
 
 ## Distribution of Country Representation:
 
@@ -68,7 +68,7 @@ We can see some of the globe has a very space distribution of information, I am 
 country_counts <- count(soil_data, 'Country')
 head(country_counts)
 ```
-It seems like the frequency of datapoints per country is unsorted, we should look at them in order. I am starting to think we will want to look at some of the top represented countries for the next step of our exporatory analysis, because they will most likely have the most information (because there are more data points present), and hopefully they aren't all NaN values. 
+It seems like the frequency of datapoints per country is unsorted, we should look at them in order. I am starting to think we will want to look at some of the top represented countries for the next step of our exploratory analysis, because they will most likely have the most information (because there are more data points present), and hopefully they aren't all NaN values. 
 
 ## Looking at the top 5 Most Represented Countries
 

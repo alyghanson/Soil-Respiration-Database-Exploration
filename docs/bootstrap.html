@@ -11,7 +11,7 @@
 
 
 
-<title>Bootstraping the Minimum and Maximum Annual Soil Respiration Differences</title>
+<title>Bootstrapping the Minimum and Maximum Annual Soil Respiration Differences</title>
 
 <script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -366,35 +366,35 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Bootstraping the Minimum and Maximum Annual
-Soil Respiration Differences</h1>
+<h1 class="title toc-ignore">Bootstrapping the Minimum and Maximum
+Annual Soil Respiration Differences</h1>
 
 </div>
 
 
 <div
-id="estimating-the-average-difference-between-the-minimum-and-maximum-soil-respiration-levels-from-1999-t0-2015-in-eastern-china"
+id="estimating-the-average-difference-between-the-minimum-and-maximum-soil-respiration-levels-from-1999-to-2015-in-eastern-china"
 class="section level1">
 <h1>Estimating the Average Difference Between the Minimum and Maximum
-Soil Respiration Levels from 1999 t0 2015 in Eastern China</h1>
+Soil Respiration Levels from 1999 to 2015 in Eastern China</h1>
 <p>A great tool at our disposal here is bootstrapping. We have a small
 number of samples, and to begin with there is an element of estimation
 in this statistic because it would be nearly impossible and extremely
 expensive to measure the respiration levels in soil across all of
 Eastern China over the course of many years, but what we do have, is a
 somewhat sparse data set.</p>
-<p>Throughout this project the biggest challenge has dealing with very
-spread out limited data, however, we have cleaned up our table and we
-can now run a bootstrap simulation to quantify the confidence interval
-of the mean difference between min and max values.</p>
+<p>Throughout this project the biggest challenge has been dealing with
+very spread out limited data, however, we have cleaned up our table and
+we can now run a bootstrap simulation to quantify the confidence
+interval of the mean difference between min and max values.</p>
 <p>The process of bootstrapping is fairly straightforward, we will be
 sampling our cleaned dataset, with replacement, calculating the mean
 difference between the highest annual soil respiration value and the
-lowest annual soil respiration values for 1995 and 2015 in that sampled
+lowest annual soil respiration values for 1999 and 2015 in that sampled
 set. We will then do this many times to create a normal distribution of
 sampled mean values. This will give us a confidence interval of that
 change.</p>
-<p>We can then proceed to repeat this porcess to better understand what
+<p>We can then proceed to repeat this process to better understand what
 a true population mean might look like. We then will compare this to the
 value that we actually observe with the given data.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;sf&quot;</span>)</span></code></pre></div>
@@ -453,10 +453,10 @@ First off let’s investigate one bootstrap iteration and its associated
 confidence interval:</p>
 </div>
 <div
-id="visualizing-the-confidence-interval-of-one-bootstrapped-simmulation"
+id="visualizing-the-confidence-interval-of-one-bootstrapped-simulation"
 class="section level1">
 <h1>Visualizing the Confidence Interval of One Bootstrapped
-Simmulation:</h1>
+Simulation:</h1>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="co">#get one set bootstrap statistics</span></span>
 <span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>boot_results <span class="ot">&lt;-</span> <span class="fu">one_bootstrap</span>()<span class="sc">$</span>t</span>
 <span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a></span>
@@ -479,7 +479,7 @@ Simmulation:</h1>
 <span id="cb13-20"><a href="#cb13-20" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Mean Difference&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frequency&quot;</span>) <span class="sc">+</span></span>
 <span id="cb13-21"><a href="#cb13-21" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Simulated Mean Difference&quot;</span>)</span></code></pre></div>
 <p><img src="bootstrap_files/figure-html/unnamed-chunk-5-1.png" width="2100" />
-lets just make sure we get two different sets of results if we run our
+Let’s just make sure we get two different sets of results if we run our
 simulation agian:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="co">#get one set bootstrap statistics</span></span>
 <span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>boot_results <span class="ot">&lt;-</span> <span class="fu">one_bootstrap</span>()<span class="sc">$</span>t</span>
@@ -548,8 +548,8 @@ comparison to the observed mean difference:</p>
 <span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a></span>
 <span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a><span class="fu">ggplot</span>(ci_and_stat, <span class="fu">aes</span>(x, y)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span>  </span>
 <span id="cb16-10"><a href="#cb16-10" tabindex="-1"></a><span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> low, <span class="at">ymax =</span> high)) <span class="sc">+</span> </span>
-<span id="cb16-11"><a href="#cb16-11" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Bootstrap Iteration&quot;</span>, <span class="at">y=</span><span class="st">&quot;Annual Respiration&quot;</span>, <span class="at">main=</span><span class="st">&quot;Distribution of Confidence Intervals in Relation to Observed Statisitc&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb16-12"><a href="#cb16-12" tabindex="-1"></a>   <span class="fu">geom_hline</span>(<span class="at">yintercept=</span>rs_mean_difference, <span class="at">color =</span> <span class="st">&quot;Red&quot;</span>, <span class="at">linetype=</span><span class="st">&quot;dashed&quot;</span>)</span></code></pre></div>
+<span id="cb16-11"><a href="#cb16-11" tabindex="-1"></a>     <span class="fu">geom_hline</span>(<span class="at">yintercept=</span>rs_mean_difference, <span class="at">color =</span> <span class="st">&quot;Red&quot;</span>, <span class="at">linetype=</span><span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
+<span id="cb16-12"><a href="#cb16-12" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Bootstrap Iteration&quot;</span>, <span class="at">y=</span><span class="st">&quot;Annual Respiration&quot;</span>, <span class="at">main=</span><span class="st">&quot;Distribution of Confidence Intervals in Relation to Observed Statisitc&quot;</span>)</span></code></pre></div>
 <p><img src="bootstrap_files/figure-html/unnamed-chunk-8-1.png" width="2100" /></p>
 </div>
 <div id="observations" class="section level1">
